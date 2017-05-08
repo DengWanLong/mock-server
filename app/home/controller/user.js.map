@@ -1,0 +1,20 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/controller/user.js"
+    ],
+    "names": [
+        "indexAction",
+        "model",
+        "where",
+        "userName",
+        "find",
+        "data",
+        "success"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,W;;;;;;;AACJ;AACIC,mB,GAAQ,KAAKA,KAAL,CAAW,MAAX,C;;qBACKA,MAAMC,KAAN,CAAY,EAACC,UAAU,OAAX,EAAZ,EAAiCC,IAAjC,E;;;AAAbC,kB;+CAEG,KAAKC,OAAL,CAAaD,IAAb,C",
+    "file": "../../../src/home/controller/user.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  async indexAction(){\n    //auto render template file index_index.html\n    let model = this.model('user');\n    let data = await model.where({userName: 'admin'}).find();\n    //data returns {name: 'thinkjs', email: 'admin@thinkjs.org', ...}\n    return this.success(data);\n    // return this.display();\n  }\n}\n"
+    ]
+}

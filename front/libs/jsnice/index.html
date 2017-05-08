@@ -1,0 +1,191 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="wf-ffdagnywebpro-n4-active wf-dincondensedweb-n4-active wf-sourcecodepro-n4-active wf-active"><head profile="http://gmpg.org/xfn/11">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS NICE: Statistical renaming, Type inference and Deobfuscation</title>
+	<meta name="description" content="JS NICE | Software Reliability Lab in ETH">
+	<meta property="og:image" content="http://jsnice.org/jsnicebig1.png">
+	<style type="text/css">
+  .wf-loading body {visibility: hidden;}
+  </style>
+	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+	<link type="text/css" rel="stylesheet" href="css/jquery.dropdown.css">
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+	<script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.zh_CN.BHB9yatl7mo.O/m=auth/exm=plus/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AGLTcCNYb9qdEW_P7ftgSJ-WJN_nc8i9jw/cb=gapi.loaded_1" async=""></script><script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.zh_CN.BHB9yatl7mo.O/m=plus/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AGLTcCNYb9qdEW_P7ftgSJ-WJN_nc8i9jw/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="https://apis.google.com/js/platform.js" gapi_processed="true"></script><script id="facebook-jssdk" src="//connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=456516547700866"></script><script id="twitter-wjs" src="//platform.twitter.com/widgets.js"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script src="//use.typekit.net/svt4rus.js" async=""></script><script src="js/codemirror.js"></script>
+	<link rel="stylesheet" href="css/codemirror.css">
+	<script src="js/javascript.js"></script>
+	<script type="text/javascript">
+	  (function(d) {
+	    var config = {
+	      kitId: 'svt4rus',
+	      scriptTimeout: 1000
+	    },
+	    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+	  })(document);
+	</script>
+
+
+<style type="text/css">.tkff-dagny-web-pro{font-family:"ff-dagny-web-pro",sans-serif;}.tk-din-condensed-web{font-family:"din-condensed-web",sans-serif;}.tk-source-code-pro{font-family:"source-code-pro",sans-serif;}</style><style type="text/css">@font-face{font-family:ff-dagny-web-pro;src:url(https://use.typekit.net/af/6bde4e/0000000000000000000118e0/23/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/6bde4e/0000000000000000000118e0/23/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/6bde4e/0000000000000000000118e0/23/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:din-condensed-web;src:url(https://use.typekit.net/af/e7b7b7/0000000000000000000146b3/23/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/e7b7b7/0000000000000000000146b3/23/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/e7b7b7/0000000000000000000146b3/23/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:source-code-pro;src:url(https://use.typekit.net/af/ddbdc5/000000000000000000013297/23/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/ddbdc5/000000000000000000013297/23/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/ddbdc5/000000000000000000013297/23/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}</style><script type="text/javascript" charset="utf-8" async="" src="https://platform.twitter.com/js/button.90facfc7dd48c9c8c4f1fc94e137b515.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(http://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+
+<body>
+	<div id="header_wrapper">
+		<div id="header" class="content_wrapper">
+			<div id="nav">
+				<div class="srl">
+					<span class="main_logo">
+					<a href="http://www.srl.inf.ethz.ch" target="_blank"><img id="srl_logo" src="img/js_nice-logo_knockout.png"></a>
+					</span>
+					<span class="tagline">
+						<span class="large_screen">
+							Statistical renaming, Type inference and Deobfuscation
+						</span>
+					</span>
+				</div>
+				<ul class=" clearfix ">
+					<li><a href="#" id="about">About</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="dropdown-1" class="dropdown dropdown-tip" style="display: none; left: 502.421875px; top: 145px;">
+	    <ul class="dropdown-menu">
+	    	<li><label for="rename"><input type="checkbox" id="rename" checked="">Rename local variables</label></li>
+	    	<li><label for="types"><input type="checkbox" id="types" checked="">Infer types</label></li>
+	    	<li><label for="pretty"><input type="checkbox" id="pretty" checked="" disabled="">Pretty print</label></li>
+  	    	<li class="dropdown-divider"></li>
+	    	<li><label for="suggest"><input type="checkbox" id="suggest">
+	    	Iteractive renames<br>(click on names to change)<br></label></li>
+<!--  	    	<li class="dropdown-divider" id="setting1"></li>
+	    	<li class="dropdown-text" id="setting2">Click "Nicify JavaScript" for the setting change to take effect</li>-->
+	    </ul>
+	</div>
+
+	<div id="dropdown-2" class="dropdown dropdown-tip" style="display: none; left: 924.7406005859375px; top: 176px;">
+	    <ul class="dropdown-menu" id="rename-items"><li class="dropdown-text">Rename to:</li><li><input></li><li class="dropdown-divider"></li><li><a>e</a></li><li><a>n</a></li><li><a>el</a></li><li><a>src</a></li><li><a>path</a></li><li><a>b</a></li></ul>
+	</div>
+
+
+	<div class="container">
+		<div class="content_wrapper" id="tool">
+			<div class="clearfix app_section">
+				<div class="input_col">
+					<div class="input_header clearfix"><h5><div class="large_screen title">Enter&nbsp;</div>JavaScript</h5>
+					<input type="submit" class="submit-button" name="submit" id="submit" value="&nbsp;&nbsp;Nicify JavaScript&nbsp;&nbsp;">
+					<input type="submit" class="settings" name="settings" id="settings" value="" data-dropdown="#dropdown-1">
+
+					</div>
+<textarea rows="16" cols="120" id="inputjs" class="input_section " style="display: none;">// Put your JavaScript here that you want to rename, deobfuscate, or infer types for:
+
+// Example:
+function chunkData(e, t) {
+  var n = [];
+  var r = e.length;
+  var i = 0;
+  for (; i &lt; r; i += t) {
+    if (i + t &lt; r) {
+      n.push(e.substring(i, i + t));
+    } else {
+      n.push(e.substring(i, r));
+    }
+  }
+  return n;
+}
+</textarea><div class="CodeMirror cm-s-default CodeMirror-wrap                  " style="height: 202px;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 29px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 29px; min-height: 50px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>x</pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"><div class="CodeMirror-selected" style="position: absolute; left: 4px; top: 0px; width: 610px; height: 14px;"></div><div class="CodeMirror-selected" style="position: absolute; left: 4px; top: 28px; width: 33.59375px; height: 14px;"></div><div class="CodeMirror-selected" style="position: absolute; left: 4px; top: 14px; width: 610px; height: 14px;"></div></div><div class="CodeMirror-cursors" style="visibility: hidden;"></div><div class="CodeMirror-code" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">data</span> <span class="cm-operator">=</span> {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-property">ddd</span>: <span class="cm-string">'dd</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div></div><pre><span style="padding-right: 0.1px;">  <span class="cm-variable">dd</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 50px;"></div><div class="CodeMirror-gutters" style="height: 198px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div>
+				</div>
+				<div class="results_col">
+					<div class="results_area">
+						<div class="input_header clearfix"><h5><span id="resultslabel">Result</span></h5>
+
+
+						</div>
+						<textarea rows="16" cols="120" id="outputjs" readonly="" class="input_section" style="display: none;">
+						</textarea><div class="CodeMirror cm-s-default CodeMirror-wrap            " style="height: 202px;"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 29px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 29px; min-height: 50px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>x</pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>14</div></div><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>4</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 4px; top: 0px; height: 14px;">&nbsp;</div></div><div class="CodeMirror-code" style=""><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// Error contacting the server...</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">error</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 50px;"></div><div class="CodeMirror-gutters" style="height: 198px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div>
+					</div>
+
+					<div class="intro_area_overlay hidden" id="settings_change">
+						<div class="notice_area">
+							<div class="input_header clearfix"><h5>Changed settings: Click "Nicify JavaScript" to see updated code</h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="intro_area_overlay hidden" id="intro_area_overlay">
+						<div class="intro_area">
+							<div class="input_header clearfix"><h5>What JSNice does for you ?</h5>
+							</div>
+							<div class="intro_slide">
+								<ul>
+
+								<li>Welcome to JSNice — we make even obfuscated JavaScript code readable.
+								</li>
+								<li>
+									We will rename variables and parameters to names that we
+									learn from thousands of open source projects.
+								</li>
+								<li>Furthermore, often we are also able to guess or infer type annotations.
+								</li>
+								<li>
+									Try JSNice on your JavaScript code to see how it works!
+								</li>
+								<li>
+									Override the names suggested by JSNice (by enabling "interactive renames" in settings).
+								</li>
+								<li>
+								Click to <a href="http://www.srl.inf.ethz.ch/jsnice.php" target="_blank">learn more about JSNice</a>.
+								</li>
+
+								</ul>
+                                <div>
+                                By using this service you warrant that all your entries are in your sole responsibility and do not infringe any laws or third-party rights like copyrights and the like. ETH and its employees cannot be held liable in any way. All entries are logged for research and improvement of service.
+                                Click to <a href="http://www.srl.inf.ethz.ch/jsnice.php" target="_blank">learn more about JSNice and the terms and conditions of use</a> (disclaimer).
+                                </div>
+                                <div>&nbsp;</div>
+                                <div>
+                                <b>New!</b>: <a href="http://apk-deguard.com/">APK-Deguard</a> deobfuscates Android applications. Check it out!
+                                </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer" class="content_wrapper">
+		<p>© JS NICE | jsnice.org | <a href="http://www.srl.inf.ethz.ch" target="_blank">Software Reliability Lab</a>, <a href="http://www.inf.ethz.ch" target="_blank">Computer Science Department</a>, <a href="http://www.ethz.ch/index_EN" target="_blank">ETH Zurich</a></p>
+		<div class="shareboxes_low clearfix">
+  			<div class="sharebox">
+				<div class="fb-like fb_iframe_widget" data-show-faces="false" data-layout="button_count" data-width="90" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=456516547700866&amp;container_width=0&amp;href=http%3A%2F%2Fwww.jsnice.org%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;show_faces=false&amp;width=90"><span style="vertical-align: bottom; width: 73px; height: 20px;"><iframe name="f19ec0b27699794" width="90px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="https://www.facebook.com/plugins/like.php?app_id=456516547700866&amp;channel=http%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2F87XNE1PC38r.js%3Fversion%3D42%23cb%3Df11523150445308%26domain%3Dwww.jsnice.org%26origin%3Dhttp%253A%252F%252Fwww.jsnice.org%252Ff13ea6f8d2cd57c%26relation%3Dparent.parent&amp;container_width=0&amp;href=http%3A%2F%2Fwww.jsnice.org%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;show_faces=false&amp;width=90" class="" style="border: none; visibility: visible; width: 73px; height: 20px;"></iframe></span></div>
+			</div>
+			<div class="sharebox ">
+				<div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 95px; height: 20px; background-position: initial initial; background-repeat: initial initial;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 95px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1493881302895" name="I0_1493881302895" src="https://apis.google.com/se/0/_/+1/sharebutton?plusShare=true&amp;usegapi=1&amp;action=share&amp;annotation=bubble&amp;origin=http%3A%2F%2Fwww.jsnice.org&amp;url=http%3A%2F%2Fwww.jsnice.org%2F&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.zh_CN.BHB9yatl7mo.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAGLTcCNYb9qdEW_P7ftgSJ-WJN_nc8i9jw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1493881302895&amp;parent=http%3A%2F%2Fwww.jsnice.org&amp;pfname=&amp;rpctoken=19414311" data-gapiattached="true" title="+分享"></iframe></div>
+			</div>
+			<div class="sharebox">
+				<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="http://platform.twitter.com/widgets/tweet_button.5b6375bb17bd9edb2f4e7f8f12971999.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fwww.jsnice.org%2F&amp;size=m&amp;text=JSNice.org%20%3A%20statistical%20renaming%20and%20deobfuscation%20for%20JavaScript&amp;time=1493881303309&amp;type=share&amp;url=http%3A%2F%2Fwww.jsnice.org%2F" style="position: static; visibility: visible; width: 61px; height: 20px;"></iframe>
+			</div>
+		</div>
+	</div>
+
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51565486-1', 'jsnice.org');
+  ga('send', 'pageview');
+
+	</script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="js/global.js"></script>
+	<script src="js/jquery.dropdown.min.js"></script>
+
+
+
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="http://staticxx.facebook.com/connect/xd_arbiter/r/87XNE1PC38r.js?version=42#channel=f13ea6f8d2cd57c&amp;origin=http%3A%2F%2Fwww.jsnice.org" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="https://staticxx.facebook.com/connect/xd_arbiter/r/87XNE1PC38r.js?version=42#channel=f13ea6f8d2cd57c&amp;origin=http%3A%2F%2Fwww.jsnice.org" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f12958a98738216" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="https://www.facebook.com/connect/ping?client_id=456516547700866&amp;domain=www.jsnice.org&amp;origin=1&amp;redirect_uri=http%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2F87XNE1PC38r.js%3Fversion%3D42%23cb%3Df9480b9667d106%26domain%3Dwww.jsnice.org%26origin%3Dhttp%253A%252F%252Fwww.jsnice.org%252Ff13ea6f8d2cd57c%26relation%3Dparent&amp;response_type=token%2Csigned_request%2Ccode&amp;sdk=joey" style="display: none;"></iframe></div></div></div><iframe name="oauth2relay1901195512" id="oauth2relay1901195512" src="https://accounts.google.com/o/oauth2/postmessageRelay?parent=http%3A%2F%2Fwww.jsnice.org&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.zh_CN.BHB9yatl7mo.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAGLTcCNYb9qdEW_P7ftgSJ-WJN_nc8i9jw#rpctoken=853985639&amp;forcesecure=1" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" title="Twitter analytics iframe" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;"></iframe></body></html>

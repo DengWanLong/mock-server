@@ -1,0 +1,17 @@
+.messagebox-toast {
+	border-radius: 4px;
+	box-shadow: 0 0 4px #444;
+	color: white;
+	padding: 0.4rem 1.2rem;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	animation-duration: 0.2s;
+	max-width: 90%;
+	min-width: 34%;
+	text-align: center;
+	white-space: nowrap;
+	z-index: 9999;
+}

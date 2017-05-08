@@ -1,0 +1,14 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/config/config.js"
+    ],
+    "names": [
+        "route_on"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACA;AACAA,YAAU;AAHG,C",
+    "file": "../../../src/api/config/config.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n  //允许自定义路由\n  route_on: true\n};\n"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/error.js"
+    ],
+    "names": [
+        "key",
+        "msg"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACAA,OAAK,MAFQ,EAEA;AACbC,OAAK,KAHQ,CAGF;AAHE,C",
+    "file": "../../../src/common/config/error.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * err config\n */\nexport default {\n  //key: value\n  key: 'code', //error number\n  msg: 'msg' //error message\n};\n"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/test.js"
+    ],
+    "names": [
+        "init",
+        "http",
+        "__before",
+        "getAction",
+        "success",
+        "mock",
+        "loadcity1Action",
+        "think",
+        "controller",
+        "base"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AACA;;;;AACA;;;;;;AACA;;;;;;;;;;;;AAKE;;;;;mBAKAA,I,iBAAKC,I,EAAK;AACR,oCAAMD,IAAN,YAAWC,IAAX;AACD,G;AACD;;;;;;mBAIAC,Q,uBAAU,CAET,C;;mBAEKC,S;;;;;;AACJ,mBAAKC,OAAL,CAAa,iBAAKC,IAAL,CAAU;AACrB,4BAAY,CADS;AAErB,yBAAS,CAAC,SAAD,EAAY,OAAZ,CAFY;AAGrB,+BAAe,CACb;AACE,2BAAS,CADX;AAEE,0BAAQ;AAFV,iBADa;AAHM,eAAV,CAAb;AAUA;;;;;;;;;;;;;;;;;mBAGIC,e;;;;;;AACJ,mBAAKF,OAAL,CAAa,iBAAKC,IAAL,CAAU;AACrB,iCAAiB,CACf;AACE,2BAAS,CADX;AAEE,0BAAQ;AAFV,iBADe;AADI,eAAV,CAAb;;;;;;;;;;;;;;;;;;EAhCyBE,MAAMC,UAAN,CAAiBC,I",
+    "file": "../../../src/api/controller/test.js",
+    "sourcesContent": [
+        "'use strict';\nimport Base from './base.js';\nimport Mock from 'mockjs';\n/**\n * rest controller\n * @type {Class}\n */\nexport default class extends think.controller.base {\n  /**\n   * init\n   * @param  {Object} http []\n   * @return {}      []\n   */\n  init(http){\n    super.init(http);\n  }\n  /**\n   * before magic method\n   * @return {Promise} []\n   */\n  __before(){\n    \n  }\n\n  async getAction(){\n    this.success(Mock.mock({\n      'code|0-5': 0,\n      'msg|1': ['success', 'error'],\n      'result|5-10': [\n        {\n          'id|+1': 1,\n          'name': '@province'\n        }\n      ]\n    }));\n    //this.success({code: 0, msg: \"success\", data: [{id: 1, name: 'test1'}, {id: 2, name: \"test2\"}]});\n  }\n\n  async loadcity1Action(){\n    this.success(Mock.mock({\n      'cityList|5-10': [\n        {\n          'id|+1': 1,\n          'name': '@city'\n        }\n      ]\n    }));\n  }\n}"
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "version": 3,
+    "sources": [
+        "../src/enum.js"
+    ],
+    "names": [
+        "USER_NO_DATA",
+        "code",
+        "msg",
+        "USER_NOT_PASSWORD",
+        "SYSTEM_ERROR"
+    ],
+    "mappings": ";;;AACO,IAAMA,sCAAe,EAAEC,MAAM,GAAR,EAAaC,KAAK,OAAlB,EAArB;AACA,IAAMC,gDAAoB,EAAEF,MAAM,GAAR,EAAaC,KAAK,MAAlB,EAA1B;AACA,IAAME,sCAAe,EAAEH,MAAM,CAAC,CAAT,EAAYC,KAAK,MAAjB,EAArB",
+    "file": "../src/enum.js",
+    "sourcesContent": [
+        "\nexport const USER_NO_DATA = { code: 100, msg: '用户不存在' }\nexport const USER_NOT_PASSWORD = { code: 101, msg: '密码错误' }\nexport const SYSTEM_ERROR = { code: -1, msg: '系统异常' }\n"
+    ]
+}

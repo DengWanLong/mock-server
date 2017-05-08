@@ -1,0 +1,24 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/db.js"
+    ],
+    "names": [
+        "type",
+        "adapter",
+        "mysql",
+        "host",
+        "port",
+        "database",
+        "user",
+        "password",
+        "prefix",
+        "encoding",
+        "mongo"
+    ],
+    "mappings": "AAAA;AACA;;;;;;kBAIe;AACbA,QAAM,OADO;AAEbC,WAAS;AACPC,WAAO;AACLC,YAAM,iBADD;AAELC,YAAM,MAFD;AAGLC,gBAAU,aAHL;AAILC,YAAM,MAJD;AAKLC,gBAAU,MALL;AAMLC,cAAQ,EANH;AAOLC,gBAAU;AAPL,KADA;AAUPC,WAAO;AAVA;AAFI,C",
+    "file": "../../../src/common/config/db.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * db config\n * @type {Object}\n */\nexport default {\n  type: 'mysql',\n  adapter: {\n    mysql: {\n      host: '192.168.156.126',\n      port: '3306',\n      database: 'mock-server',\n      user: 'root',\n      password: 'root',\n      prefix: '',\n      encoding: 'utf8'\n    },\n    mongo: {\n\n    }\n  }\n};\n"
+    ]
+}

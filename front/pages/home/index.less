@@ -1,0 +1,66 @@
+@import "../common/docs.css";
+
+body {
+    background-color: #f1f1f1;
+}
+
+#loading {
+	text-align: center;
+	color: #888;
+	padding-top: 100px;
+	position: absolute;
+	z-index: 9000;
+	background: #f1f1f1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2000px;
+}
+
+.data-source {
+  padding: 0px !important;
+}
+
+.segment {
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .right {
+    font-size: 1rem;
+    float: right;
+  }
+
+  .mock-button {
+    margin-left: -7px;
+    position: absolute;
+    top: 50%;
+    //transform: translate(0%, -50%);
+  }
+}
+
+.CodeMirror {
+  height: 500px   !important;
+  max-height: 600px !important;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace !important;
+  font-size: 1rem;
+  margin-top: 4px;
+  // font-weight: normal;
+
+  .CodeMirror-lines {
+    padding: 10px 0px;
+    padding-bottom: 0px;
+  }
+
+  .cm-comment {
+    color: #AAAAAA !important;
+    font-style: italic;
+  }
+
+  .cm-string {
+    color: #007b6b !important;
+  }
+}

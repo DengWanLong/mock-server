@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/login/controller/index.js"
+    ],
+    "names": [
+        "Enum",
+        "indexAction",
+        "display",
+        "loginAction",
+        "model",
+        "where",
+        "userName",
+        "get",
+        "find",
+        "data",
+        "think",
+        "isEmpty",
+        "password",
+        "md5",
+        "fail",
+        "USER_NOT_PASSWORD",
+        "code",
+        "msg",
+        "USER_NO_DATA",
+        "session",
+        "success",
+        "logoutAction",
+        "redirect",
+        "getuserinfoAction",
+        "userInfo",
+        "console",
+        "log"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;AACA;;IAAaA,I;;;;;;;;;;;;;;AAGX;;;;mBAIAC,W,0BAAa;AACX;AACA,WAAO,KAAKC,OAAL,EAAP;AACD,G;;mBAEKC,W;;;;;;;AACAC,mB,GAAQ,KAAKA,KAAL,CAAW,MAAX,C;;qBACKA,MAAMC,KAAN,CAAY,EAACC,UAAU,KAAKC,GAAL,CAAS,UAAT,CAAX,EAAZ,EAA8CC,IAA9C,E;;;AAAbC,kB;;kBAEAC,MAAMC,OAAN,CAAcF,IAAd,C;;;;;oBACCA,KAAKG,QAAL,IAAiBF,MAAMG,GAAN,CAAU,KAAKN,GAAL,CAAS,UAAT,CAAV,C;;;;;+CACX,KAAKO,IAAL,CAAUd,KAAKe,iBAAL,CAAuBC,IAAjC,EAAuChB,KAAKe,iBAAL,CAAuBE,GAA9D,C;;;;;;;+CAGF,KAAKH,IAAL,CAAUd,KAAKkB,YAAL,CAAkBF,IAA5B,EAAkChB,KAAKkB,YAAL,CAAkBD,GAApD,C;;;AAET,qBAAOR,KAAKG,QAAZ;;qBACM,KAAKO,OAAL,CAAa,UAAb,EAAyBV,IAAzB,C;;;+CACC,KAAKW,OAAL,CAAaX,IAAb,C;;;;;;;;;;;;;;;;;mBAGHY,Y;;;;;;;qBACE,KAAKF,OAAL,E;;;gDACC,KAAKG,QAAL,CAAc,yBAAd,C;;;;;;;;;;;;;;;;;mBAGHC,iB;;;;;;;;qBACiB,KAAKJ,OAAL,CAAa,UAAb,C;;;AAAjBK,sB;;AACJC,sBAAQC,GAAR,CAAYF,QAAZ;AACA,kBAAGd,MAAMC,OAAN,CAAca,QAAd,CAAH,EAA4B;AAC1B,qBAAKF,QAAL,CAAc,yBAAd;AACD;gDACM,KAAKF,OAAL,CAAaI,QAAb,C",
+    "file": "../../../src/login/controller/index.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\nimport  * as Enum from '../../enum.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  indexAction(){\n    //auto render template file index_index.html\n    return this.display();\n  }\n\n  async loginAction() {\n    let model = this.model('user');\n    let data = await model.where({userName: this.get('userName')}).find();\n    //data returns {name: 'thinkjs', email: 'admin@thinkjs.org', ...}\n    if(!think.isEmpty(data)) {\n      if(data.password != think.md5(this.get('password'))) {\n        return this.fail(Enum.USER_NOT_PASSWORD.code, Enum.USER_NOT_PASSWORD.msg);\n      }\n    } else {\n      return this.fail(Enum.USER_NO_DATA.code, Enum.USER_NO_DATA.msg);\n    }\n    delete data.password;\n    await this.session(\"userInfo\", data);\n    return this.success(data);\n  }\n\n  async logoutAction() {\n    await this.session();\n    return this.redirect('/login/index/login.html');\n  }\n\n  async getuserinfoAction() {\n    let userInfo = await this.session(\"userInfo\");\n    console.log(userInfo);\n    if(think.isEmpty(userInfo)) {\n      this.redirect('/login/index/login.html');\n    }\n    return this.success(userInfo);\n  }\n}\n"
+    ]
+}

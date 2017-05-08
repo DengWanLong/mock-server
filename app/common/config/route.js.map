@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/route.js"
+    ],
+    "names": [],
+    "mappings": "AAAA;AACA;AACA;AACA;;;kBACe,CACX,CAAC,QAAD,EAAW,oBAAX,CADW,EAEX,CAAC,aAAD,EAAgB,oBAAhB,CAFW,C",
+    "file": "../../../src/common/config/route.js",
+    "sourcesContent": [
+        "'use strict';\n// let routes = new GetRoute();\n// const apiroutes = routes.getRoute();\n// const apireg=/^/\nexport default [\n    [/^api\\//, 'api/test/loadcity1'],\n    [/^[\\w_\\d]+\\//, 'api/test/loadcity1']\n]\n"
+    ]
+}

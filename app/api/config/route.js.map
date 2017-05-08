@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/config/route.js"
+    ],
+    "names": [],
+    "mappings": "AAAA;AACA;AACA;AACA;;;kBACe,E",
+    "file": "../../../src/api/config/route.js",
+    "sourcesContent": [
+        "'use strict';\n// let routes = new GetRoute();\n// const apiroutes = routes.getRoute();\n// const apireg=/^/\nexport default [\n]\n"
+    ]
+}
