@@ -2,6 +2,8 @@ import './login.less';
 import 'animate.css';
 
 import Vue from 'vue';
+import '../../libs/semantic-ui/dist/semantic.css';
+// import '../../../node_modules/semantic-ui-css/semantic.css';
 import '../../libs/semantic-ui/dist/semantic.min.js';
 import store from '../store';
 import { mapGetters, mapActions } from 'vuex';

@@ -19,6 +19,6 @@
     "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAGE;;;;mBAIEA,Q;;;;;;;mBACqB,KAAKC,OAAL,CAAa,UAAb,C;;;AAAjBC,oB;;iBAEDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;6CACM,KAAKG,QAAL,CAAc,yBAAd,C;;;AAETC,oBAAQC,GAAR,CAAY,YAAZ;AACA,iBAAKC,MAAL,CAAY,UAAZ,EAAwBN,QAAxB;;;;;;;;;;EAZyBC,MAAMM,UAAN,CAAiBC,I",
     "file": "../../../src/home/controller/base.js",
     "sourcesContent": [
-        "'use strict';\n\nexport default class extends think.controller.base {\n  /**\n   * 前置魔术方法\n   * @return {Promise} []\n   */\n  * __before(){\n    let userInfo = yield this.session('userInfo');\n    //如果没有登录，则跳转到登录页面\n    if(think.isEmpty(userInfo)){\n      return this.redirect('/login/index/login.html');\n    }\n    console.log(\"base befor\");\n    this.assign('userInfo', userInfo);\n  }\n}\n"
+        "'use strict';\n\nexport default class extends think.controller.base {\n  /**\n   * 前置魔术方法\n   * @return {Promise} []\n   */\n  * __before(){\n    let userInfo = yield this.session('userInfo');\n    //如果没有登录，则跳转到登录页面\n    if(think.isEmpty(userInfo)){\n      return this.redirect('/login/login/login.html');\n    }\n    console.log(\"base befor\");\n    this.assign('userInfo', userInfo);\n  }\n}\n"
     ]
 }

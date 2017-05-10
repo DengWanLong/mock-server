@@ -49,7 +49,7 @@ var _class = function (_think$controller$bas) {
               break;
             }
 
-            return _context.abrupt('return', this.redirect('/login/index/login.html'));
+            return _context.abrupt('return', this.redirect('/login/login/login.html'));
 
           case 5:
             console.log("base befor");

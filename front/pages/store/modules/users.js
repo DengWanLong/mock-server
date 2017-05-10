@@ -20,7 +20,8 @@ const actions = {
   },
   logout({commit, state}) {
     ajax.get("/login/index/logout", {}, (data) => {
-      commit(types.CLEAR_USER_INFO, { data })
+      commit(types.CLEAR_USER_INFO)
+      window.location = "/login/login/login.html";
     });
   },
   getUserInfo({commit, state}) {
@@ -35,7 +36,7 @@ const mutations = {
   [types.SET_USER_INFO] (state, { data }) {
     state.userInfo = data.data;
   },
-  [types.CLEAR_USER_INFO] (state, { data }) {
+  [types.CLEAR_USER_INFO] (state) {
     state.userInfo = null;
   }
 }

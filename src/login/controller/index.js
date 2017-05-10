@@ -31,14 +31,13 @@ export default class extends Base {
 
   async logoutAction() {
     await this.session();
-    return this.redirect('/login/index/login.html');
+    return this.success();
   }
 
   async getuserinfoAction() {
     let userInfo = await this.session("userInfo");
-    console.log(userInfo);
     if(think.isEmpty(userInfo)) {
-      this.redirect('/login/index/login.html');
+      return this.redirect('/login/login/login.html');
     }
     return this.success(userInfo);
   }

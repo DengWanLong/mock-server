@@ -5,6 +5,7 @@ import Vue from 'vue';
 import routes from './routes';
 // import $ from 'jquery';
 import store from '../store';
+import '../../libs/semantic-ui/dist/semantic.css';
 import '../../libs/semantic-ui/dist/semantic.min.js';
 
 // Vue.config.productionTip = false;

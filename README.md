@@ -34,6 +34,6 @@ pm2 startOrReload pm2.json
 ## 查找端口并结束进程
 
 ```
-1.lsof -i tcp:8360 根据端口查找PID
-2.kill -9 PID 结束进程
+1.sudo lsof -i tcp:8360 根据端口查找PID
+2.sudo kill -9 PID 结束进程
 ```

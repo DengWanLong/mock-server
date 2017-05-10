@@ -61,7 +61,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
-				//use: ['css-loader','style-loader']
+				// use: ['style-loader','css-loader','less-loader']
 			},
 			{
 				test: /\.less$/,
@@ -79,32 +79,32 @@ module.exports = {
 				loader: 'json'
 			},
 			{
-				test: /assets\/.*?\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				test: /assets\/.*?\.(png|jpe?g|jpg|gif|svg)(\?.*)?$/,
 				loader: 'base64-image-loader',
 			},
 			{
-				test: /images\/.*?\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				loader: 'file',
-				query: {
-					name: 'images/[name].[hash].[ext]',
-					publicPath: ''
+				test: /images\/.*?\.(png|jpe?g|jpg|gif|svg)(\?.*)?$/,
+				loader: 'file-loader',
+				options: {
+					name: 'img/[name].[hash].[ext]',
+					// publicPath: ''
 				}
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				exclude: /(assets|images)\/.*?\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				loader: 'file',
-				query: {
-					name: 'images/[name].[hash].[ext]',
-					publicPath: '../'
+				test: /\.(png|jpe?g|jpg|gif|svg)(\?.*)?$/,
+				exclude: /(assets|images)\/.*?\.(png|jpe?g|jpg|gif|svg)(\?.*)?$/,
+				loader: 'file-loader',
+				options: {
+					name: 'img/[name].[hash].[ext]',
+					// publicPath: '../'
 				}
 			},
 			{
-				test: /.*?\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-				loader: 'file',
-				query: {
+				test: /.*?\.(woff2|woff|ttf|eot|svg|otf)(\?.*)?$/,
+				loader: 'file-loader',
+				options: {
 					name: 'fonts/[name].[hash].[ext]',
-					publicPath: '../'
+					// publicPath: '../'
 				}
 			}
 		]
@@ -119,6 +119,8 @@ module.exports = {
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1
 			'vuex$': 'vuex/dist/vuex.esm.js', // 'vue/dist/vue.common.js' for webpack 1
+			//semantic: path.resolve(__dirname, '../libs/semantic-ui/src/'),
+      'semantic': path.resolve(__dirname, '../../node_modules/semantic-ui-css/semantic.min.js')
       // jquery: path.resolve(__dirname, '../../node_modules/jquery/src/jquery')
 		},
 		extensions: ['.js', '.vue']
@@ -128,7 +130,10 @@ module.exports = {
 		      // jquery
 		      $: 'jquery',
 		      jQuery: 'jquery',
-		      'window.jQuery': 'jquery'
+		      'window.jQuery': 'jquery',
+      semantic     : 'semantic-ui-css',
+      Semantic     : 'semantic-ui-css',
+      'semantic-ui': 'semantic-ui-css'
 		})
 	])
 };

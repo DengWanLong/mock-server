@@ -117,7 +117,7 @@ var _class = function (_Base) {
               return this.session();
 
             case 2:
-              return _context2.abrupt('return', this.redirect('/login/index/login.html'));
+              return _context2.abrupt('return', this.success());
 
             case 3:
             case 'end':
@@ -147,10 +147,14 @@ var _class = function (_Base) {
             case 2:
               userInfo = _context3.sent;
 
-              console.log(userInfo);
-              if (think.isEmpty(userInfo)) {
-                this.redirect('/login/index/login.html');
+              if (!think.isEmpty(userInfo)) {
+                _context3.next = 5;
+                break;
               }
+
+              return _context3.abrupt('return', this.redirect('/login/login/login.html'));
+
+            case 5:
               return _context3.abrupt('return', this.success(userInfo));
 
             case 6:
