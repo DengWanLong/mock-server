@@ -26,7 +26,11 @@ const actions = {
   },
   getUserInfo({commit, state}) {
     ajax.get("/login/index/getuserinfo", {}, (data) => {
-      commit(types.SET_USER_INFO, { data })
+      if(data.data) {
+        commit(types.SET_USER_INFO, { data })
+      } else {
+        window.location = "/login/login/login.html";
+      }
     });
   }
 }

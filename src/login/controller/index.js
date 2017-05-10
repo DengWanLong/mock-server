@@ -37,7 +37,7 @@ export default class extends Base {
   async getuserinfoAction() {
     let userInfo = await this.session("userInfo");
     if(think.isEmpty(userInfo)) {
-      return this.redirect('/login/login/login.html');
+      return this.success();
     }
     return this.success(userInfo);
   }

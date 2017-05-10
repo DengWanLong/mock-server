@@ -29,16 +29,6 @@ module.exports = {
 	entry: entry,
 	module: {
 		rules: [
-			// {
-      //     test: require.resolve('jquery'),
-      //     use: [{
-      //         loader: 'expose-loader',
-      //         options: 'jQuery'
-      //     },{
-      //         loader: 'expose-loader',
-      //         options: '$'
-      //     }]
-      // },
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
@@ -49,14 +39,7 @@ module.exports = {
 			},
 			{
 				test: /\.vue$/,
-				use: ['vue-loader'],
-				// loader: 'vue',
-				// options: {
-				// 	loaders: {
-				// 		css: ExtractTextPlugin.extract("css"),
-				// 		less: ExtractTextPlugin.extract("css!less")
-				// 	}
-				// }
+				use: ['vue-loader']
 			},
 			{
 				test: /\.css$/,
@@ -87,7 +70,7 @@ module.exports = {
 				loader: 'file-loader',
 				options: {
 					name: 'img/[name].[hash].[ext]',
-					// publicPath: ''
+					publicPath: '../'
 				}
 			},
 			{
@@ -96,7 +79,7 @@ module.exports = {
 				loader: 'file-loader',
 				options: {
 					name: 'img/[name].[hash].[ext]',
-					// publicPath: '../'
+					publicPath: '../'
 				}
 			},
 			{
@@ -104,17 +87,11 @@ module.exports = {
 				loader: 'file-loader',
 				options: {
 					name: 'fonts/[name].[hash].[ext]',
-					// publicPath: '../'
+					publicPath: '../'
 				}
 			}
 		]
 	},
-	// vue: {
-	// 	loaders: {
-	// 		css: ExtractTextPlugin.extract("css"),
-	// 		less: ExtractTextPlugin.extract("css!less")
-	// 	}
-  	// },
 	resolve: {
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1

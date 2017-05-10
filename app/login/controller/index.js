@@ -152,7 +152,7 @@ var _class = function (_Base) {
                 break;
               }
 
-              return _context3.abrupt('return', this.redirect('/login/login/login.html'));
+              return _context3.abrupt('return', this.success());
 
             case 5:
               return _context3.abrupt('return', this.success(userInfo));
