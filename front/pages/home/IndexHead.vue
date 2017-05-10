@@ -24,13 +24,14 @@ export default {
 	},
   mounted() {
     this.$nextTick(function () {
+      this.getUserInfo();
       $(".logout").click(() => {
         this.logout();
       });
     })
   },
 	methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['getUserInfo', 'logout']),
     showMenu() {
       //.sidebar('setting', 'transition', 'overlay').sidebar('setting', 'closable', false)
       $('.ui.labeled.icon.sidebar').sidebar('setting', 'dimPage', false).sidebar('toggle');

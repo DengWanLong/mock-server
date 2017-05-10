@@ -97,7 +97,7 @@ module.exports = {
 			'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1
 			'vuex$': 'vuex/dist/vuex.esm.js', // 'vue/dist/vue.common.js' for webpack 1
 			//semantic: path.resolve(__dirname, '../libs/semantic-ui/src/'),
-      'semantic': path.resolve(__dirname, '../../node_modules/semantic-ui-css/semantic.min.js')
+      // 'semantic': path.resolve(__dirname, '../../node_modules/semantic-ui-css/semantic.min.js')
       // jquery: path.resolve(__dirname, '../../node_modules/jquery/src/jquery')
 		},
 		extensions: ['.js', '.vue']
@@ -108,9 +108,9 @@ module.exports = {
 		      $: 'jquery',
 		      jQuery: 'jquery',
 		      'window.jQuery': 'jquery',
-      semantic     : 'semantic-ui-css',
-      Semantic     : 'semantic-ui-css',
-      'semantic-ui': 'semantic-ui-css'
+      // semantic     : 'semantic-ui-css',
+      // Semantic     : 'semantic-ui-css',
+      // 'semantic-ui': 'semantic-ui-css'
 		})
 	])
 };

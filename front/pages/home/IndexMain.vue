@@ -62,11 +62,6 @@ export default {
       outputEditor: null
 		};
 	},
-	computed: {
-    ...mapGetters({
-      userInfo: 'userInfo'
-    })
-	},
   mounted() {
     this.$nextTick(function () {
       this.inputEditor = CodeMirror.fromTextArea(document.getElementById("inputjs"), {
@@ -79,14 +74,9 @@ export default {
     	    lineNumbers: true,
     	    lineWrapping: true
     	});
-      this.getUserInfo();
     })
   },
 	methods: {
-    ...mapActions(['getUserInfo']),
-    showMenu() {
-      $('.ui.labeled.icon.sidebar').sidebar('toggle');
-    },
     onMock() {
       try {
         var source = this.inputEditor.getValue();

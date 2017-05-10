@@ -14,6 +14,19 @@ Vue.config.debug = true;
 new Vue({
     el: '#app',
     store: store,
-    router: routes
+    router: routes,
+    mounted() {
+      this.$nextTick(() => {
+        $(".left-menu .home").click(function(){
+          routes.push({ name: 'index' })
+        });
+        $(".left-menu .project").click(function(){
+          routes.push({ name: 'project' })
+        });
+        $(".left-menu .interface").click(function(){
+          routes.push({ name: 'interface' })
+        });
+      });
+    }
 });
 setTimeout(() => $('#loading').remove(), 600);
