@@ -71,6 +71,10 @@ module.exports = merge(baseWebpackConfig, {
 			'/login/**': {
 				target: hosts.local,
 				secure: false
+			},
+			'/home/**': {
+				target: hosts.local,
+				secure: false
 			}
 			//,
 			// '/h5/**': {

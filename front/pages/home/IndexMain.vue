@@ -103,10 +103,4 @@ export default {
 </script>
 
 <style scoped lang="less">
-.index-main {
-
-  .index-content {
-    padding: 20px;
-  }
-}
 </style>

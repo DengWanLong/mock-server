@@ -10,12 +10,12 @@
 <script>
 // import $ from 'jquery';
 import { mapGetters, mapActions } from 'vuex';
-import CodeMirror from '../../../node_modules/codemirror/lib/codemirror';
+import CodeMirror from '../../../../node_modules/codemirror/lib/codemirror';
 import Mock from 'mockjs';
-import * as MessageBox from '../common/MessageBox';
-import '../../../node_modules/codemirror/lib/codemirror.css';
-import '../../../node_modules/codemirror/mode/javascript/javascript.js';
-import IndexHead from './IndexHead';
+import * as MessageBox from '../../common/MessageBox';
+import '../../../../node_modules/codemirror/lib/codemirror.css';
+import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
+import IndexHead from '../IndexHead';
 
 export default {
 	components: { IndexHead },
@@ -41,10 +41,4 @@ export default {
 </script>
 
 <style scoped lang="less">
-.index-main {
-
-  .index-content {
-    padding: 20px;
-  }
-}
 </style>

@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/controller/project.js"
+    ],
+    "names": [
+        "Enum",
+        "queryAction",
+        "pageNo",
+        "get",
+        "pageSize",
+        "session",
+        "userInfo",
+        "think",
+        "isEmpty",
+        "fail",
+        "NOT_NOGIN",
+        "code",
+        "msg",
+        "result",
+        "model",
+        "join",
+        "table",
+        "as",
+        "on",
+        "page",
+        "where",
+        "userId",
+        "id",
+        "select",
+        "success",
+        "pages",
+        "totalCount",
+        "resut",
+        "count",
+        "totalPage",
+        "totalPages",
+        "tables",
+        "data"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;AACA;;IAAaA,I;;;;;;;;;;;;;;AAGX;;;;mBAIMC,W;;;;;;;AACAC,oB,GAAS,KAAKC,GAAL,CAAS,QAAT,C;AACTC,sB,GAAW,KAAKD,GAAL,CAAS,UAAT,C;;qBACM,KAAKE,OAAL,CAAa,UAAb,C;;;AAAjBC,sB;;mBACDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;+CACM,KAAKG,IAAL,CAAUT,KAAKU,SAAL,CAAeC,IAAzB,EAA+BX,KAAKU,SAAL,CAAeE,GAA9C,C;;;AAELC,oB,GAAS,KAAKC,KAAL,CAAW,SAAX,EAAsBC,IAAtB,CAA2B;AACtCC,uBAAO,UAD+B;AAEtCD,sBAAM,OAFgC;AAGtCE,oBAAI,IAHkC;AAItCC,oBAAI,CAAC,IAAD,EAAO,WAAP;AAJkC,eAA3B,EAKVC,IALU,CAKLjB,MALK,EAKGE,QALH,EAMZgB,KANY,CAMN,EAACC,QAAQf,SAASgB,EAAlB,EANM,EAMiBC,MANjB,E;;mBAOVhB,MAAMC,OAAN,CAAcK,MAAd,C;;;;;+CACM,KAAKW,OAAL,CAAa,EAACC,OAAO,EAACvB,QAAQA,MAAT,EAAiBE,UAAUA,QAA3B,EAAqCsB,YAAYC,MAAMC,KAAvD,EAA8DC,WAAWhB,OAAOiB,UAAhF,EAAR,EAAqGC,QAAQlB,OAAOmB,IAApH,EAAb,C;;;+CAEF,KAAKR,OAAL,CAAa,EAACC,OAAO,EAACvB,QAAQA,MAAT,EAAiBE,UAAUA,QAA3B,EAAqCsB,YAAY,CAAjD,EAAoDG,WAAW,CAA/D,EAAR,EAA2EE,QAAQ,EAAnF,EAAb,C",
+    "file": "../../../src/home/controller/project.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\nimport  * as Enum from '../../enum.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  async queryAction(){\n    let pageNo = this.get(\"pageNo\");\n    let pageSize = this.get(\"pageSize\");\n    let userInfo = await this.session(\"userInfo\");\n    if(think.isEmpty(userInfo)) {\n      return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);\n    }\n    let result = this.model(\"project\").join({\n      table: \"userAuth\",\n      join: \"inner\",\n      as: 'ua',\n      on: ['id', 'projectId']\n    }).page(pageNo, pageSize)\n    .where({userId: userInfo.id}).select();\n    if(think.isEmpty(result)) {\n      return this.success({pages: {pageNo: pageNo, pageSize: pageSize, totalCount: resut.count, totalPage: result.totalPages}, tables: result.data});\n    }\n    return this.success({pages: {pageNo: pageNo, pageSize: pageSize, totalCount: 0, totalPage: 0}, tables: []});\n  }\n}\n"
+    ]
+}
