@@ -69,24 +69,28 @@ var _class = function (_Base) {
               return _context.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
 
             case 7:
-              result = this.model("project").join({
+              _context.next = 9;
+              return this.model("project").join({
                 table: "userAuth",
                 join: "inner",
                 as: 'ua',
                 on: ['id', 'projectId']
-              }).page(pageNo, pageSize).where({ userId: userInfo.id }).select();
+              }).page(pageNo, pageSize).where({ 'ua.userId': userInfo.id }).field("project.id,project.projectName,project.projectPrefix,project.proxyURL,date_format(project.createTime, '%Y-%c-%d %h:%i:%s' ) as createTime").countSelect();
+
+            case 9:
+              result = _context.sent;
 
               if (!think.isEmpty(result)) {
-                _context.next = 10;
+                _context.next = 12;
                 break;
               }
 
-              return _context.abrupt('return', this.success({ pages: { pageNo: pageNo, pageSize: pageSize, totalCount: resut.count, totalPage: result.totalPages }, tables: result.data }));
-
-            case 10:
               return _context.abrupt('return', this.success({ pages: { pageNo: pageNo, pageSize: pageSize, totalCount: 0, totalPage: 0 }, tables: [] }));
 
-            case 11:
+            case 12:
+              return _context.abrupt('return', this.success({ pages: { pageNo: pageNo, pageSize: pageSize, totalCount: result.count, totalPage: result.totalPages }, tables: result.data }));
+
+            case 13:
             case 'end':
               return _context.stop();
           }

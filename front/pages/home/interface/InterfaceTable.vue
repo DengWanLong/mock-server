@@ -3,8 +3,9 @@
     <thead>
       <tr>
           <th>项目名称</th>
-          <th>项目前缀</th>
-          <th>代理路径</th>
+          <th>接口名称</th>
+          <th>接口地址</th>
+          <th>二次代理</th>
           <th>创建时间</th>
 		      <th class="center aligned" style="width:150px">操作</th>
       </tr>
@@ -14,15 +15,18 @@
         <td>{{project.projectName}}</td>
         <td>{{project.projectPrefix}}</td>
         <td>{{project.proxyURL}}</td>
+        <td>{{project.proxyURL}}</td>
         <td>{{project.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <div class="ui button" @click="onLookInterface()">查看接口</div>
+            <div class="ui button" @click="onTest()">测试</div>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
+              <div class="item" @click="onDelete()"><i class="search icon"></i>查看</div>
                 <div class="item" @click="onEdit()"><i class="edit icon"></i>修改</div>
                 <div class="item" @click="onDelete()"><i class="delete icon"></i>删除</div>
+                <div class="item" @click="onDelete()"><i class="copy icon"></i>复制</div>
               </div>
             </div>
           </div>
@@ -31,7 +35,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="5">
+        <th colspan="6">
           <pagination :page="pagination.page"></pagination>
         </th>
       </tr>
@@ -52,10 +56,6 @@ export default {
       tables: []
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-    });
-  },
   methods: {
 		fillCustomQueryParams(params) {
 
@@ -71,8 +71,8 @@ export default {
     onOperation() {
       $(this.$el).find(".operation").dropdown();
     },
-    onLookInterface() {
-      alert("查看接口");
+    onTest() {
+      alert("测试");
     },
     onEdit() {
       alert("编辑");

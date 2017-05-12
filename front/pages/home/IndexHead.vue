@@ -1,10 +1,13 @@
 <template>
-  <div class="index-head animated bounceInDown">
-      <div class="logo">
-        <img src="../../assets/logo.png">
-      </div>
-      <a class="ui menu-button" @click="showMenu()"><i class="sidebar icon"></i>Menu</a>
-      <div class="right"><div class="user-info">{{userInfo.userName}}&nbsp;&nbsp;|&nbsp;&nbsp;<a class="logout">退出</a></div></div>
+  <div>
+    <div class="index-head head-height animated bounceInDown">
+        <div class="logo">
+          <img src="../../assets/logo.png">
+        </div>
+        <a class="ui menu-button" @click="showMenu()"><i class="sidebar icon"></i>Menu</a>
+        <div class="right"><div class="user-info">{{userInfo.userName}}&nbsp;&nbsp;|&nbsp;&nbsp;<a class="logout">退出</a></div></div>
+    </div>
+    <div class="head-height"></div>
   </div>
 </template>
 
@@ -41,10 +44,12 @@ export default {
 </script>
 
 <style scoped lang="less">
+.head-height {
+  height: 80px;
+  line-height: 80px;
+}
 .index-head {
     width: 100%;
-    height: 80px;
-    line-height: 80px;
     // border-bottom: 3px solid rgba(176, 196, 222, .8);
     padding: 0px 100px;
     background-color: #59e0c8;
@@ -52,6 +57,9 @@ export default {
     font-weight: bold;
     font-family: 微软雅黑;
     color: rgba(255, 255, 255, .9);
+    position: fixed;
+    top: 0px;
+    left: 0px;
     //box-shadow: 0 0 20px rgba(89, 224, 200, .9);
 
     a {

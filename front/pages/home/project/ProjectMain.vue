@@ -5,7 +5,7 @@
       <div class="index-panel">
         <div class="title">
           <h5>项目列表</h5>
-          <div class="right"><a class="ui button teal">新增项目</a></div>
+          <div class="right"><a class="ui button teal" @click="showAddPanel()">新增项目</a></div>
         </div>
         <project-table ref="projecttable"></project-table>
       </div>
@@ -39,6 +39,7 @@ export default {
 	},
   mounted() {
     this.$nextTick(function () {
+      $(this.$el).find(".project-panel").shape("repaint");
       this.$refs.projecttable.loadTable(() => {});
     })
   },
