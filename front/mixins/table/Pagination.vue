@@ -1,7 +1,7 @@
 <template language="html">
   <div class="ui right floated pagination menu mini">
-    <a data-action="first" class="item" :class="{'disabled': hastNextPage}">首页</a>
-    <a data-action="pre" class="page-pre icon item" :class="{'disabled': hastNextPage}">
+    <a data-action="first" class="item" :class="{'disabled': !hasPrePage}">首页</a>
+    <a data-action="pre" class="page-pre icon item" :class="{'disabled': !hasPrePage}">
       <i class="left chevron icon"></i>
     </a>
     <a v-for="pageNum in pages" class="item" :class="{'active': pageNum==page.pageNo}"
@@ -47,10 +47,10 @@ export default {
       this.$nextTick(() => {
         var me = this;
         $(this.$el).on('click', 'a.item', function() {
-            if($(this).hasClass('disabled') || $(this).hasClass('active')) return;
-            var action = $(this).data('action');
-            var value = $(this).data('value');
-            me.$emit('pagination.click', action, value);
+          if($(this).hasClass('disabled') || $(this).hasClass('active')) return;
+          var action = $(this).data('action');
+          var value = $(this).data('value');
+          me.$parent.$emit('pagination.click', action, value);
         });
       });
     }

@@ -105,6 +105,200 @@ var _class = function (_Base) {
     return queryAction;
   }();
 
+  _class.prototype.addAction = function () {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+      var projectName, projectPrefix, proxyURL, userInfo, model, projectId, insertId;
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              projectName = this.get('projectName');
+              projectPrefix = this.get('projectPrefix');
+              proxyURL = this.get('proxyURL');
+              _context2.next = 5;
+              return this.session("userInfo");
+
+            case 5:
+              userInfo = _context2.sent;
+
+              if (!think.isEmpty(userInfo)) {
+                _context2.next = 8;
+                break;
+              }
+
+              return _context2.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+
+            case 8:
+              model = this.model("project");
+              // let insertId = await model.transaction( async function * () {
+              //   let projectId = await model.add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+              //   return await this.model('userAuth').add({userId: userInfo.id, projectId: projectId, isManage: 1});
+              // })
+              // let insertId = await this.model("project").add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+
+              _context2.prev = 9;
+              _context2.next = 12;
+              return model.add({ projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL });
+
+            case 12:
+              projectId = _context2.sent;
+              _context2.next = 15;
+              return this.model("userAuth").add({ userId: userInfo.id, projectId: projectId, isManage: 1 });
+
+            case 15:
+              insertId = _context2.sent;
+              _context2.next = 21;
+              break;
+
+            case 18:
+              _context2.prev = 18;
+              _context2.t0 = _context2['catch'](9);
+              return _context2.abrupt('return', this.fail(Enum.ADD_ERROR.code, Enum.ADD_ERROR.msg));
+
+            case 21:
+              return _context2.abrupt('return', this.success());
+
+            case 22:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this, [[9, 18]]);
+    }));
+
+    function addAction() {
+      return _ref2.apply(this, arguments);
+    }
+
+    return addAction;
+  }();
+
+  _class.prototype.editAction = function () {
+    var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+      var id, projectName, projectPrefix, proxyURL, model, userInfo, affectedRows;
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              id = this.get('id');
+              projectName = this.get('projectName');
+              projectPrefix = this.get('projectPrefix');
+              proxyURL = this.get('proxyURL');
+              model = this.model("project");
+              _context3.next = 7;
+              return this.session("userInfo");
+
+            case 7:
+              userInfo = _context3.sent;
+
+              if (!think.isEmpty(userInfo)) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+
+            case 10:
+              _context3.prev = 10;
+              _context3.next = 13;
+              return model.where({ id: id }).update({ projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL });
+
+            case 13:
+              affectedRows = _context3.sent;
+              _context3.next = 19;
+              break;
+
+            case 16:
+              _context3.prev = 16;
+              _context3.t0 = _context3['catch'](10);
+              return _context3.abrupt('return', this.fail(Enum.EDIT_ERROR.code, Enum.EDIT_ERROR.msg));
+
+            case 19:
+              return _context3.abrupt('return', this.success());
+
+            case 20:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[10, 16]]);
+    }));
+
+    function editAction() {
+      return _ref3.apply(this, arguments);
+    }
+
+    return editAction;
+  }();
+
+  _class.prototype.deleteAction = function () {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
+      var id, userInfo, model, interfaceCount;
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              id = this.get('id');
+              _context4.next = 3;
+              return this.session("userInfo");
+
+            case 3:
+              userInfo = _context4.sent;
+
+              if (!think.isEmpty(userInfo)) {
+                _context4.next = 6;
+                break;
+              }
+
+              return _context4.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+
+            case 6:
+              model = this.model("project");
+              _context4.prev = 7;
+              interfaceCount = this.model("interface").field("id").where({ projectId: id }).count();
+
+              if (!(interfaceCount > 0)) {
+                _context4.next = 11;
+                break;
+              }
+
+              return _context4.abrupt('return', this.fail(Enum.DELETE_PROJECT_INTERFACE_ERROR.code, Enum.DELETE_PROJECT_INTERFACE_ERROR.msg));
+
+            case 11:
+              _context4.next = 13;
+              return this.model("userAuth").where({ projectId: id }).delete();
+
+            case 13:
+              _context4.next = 15;
+              return model.where({ id: id }).delete();
+
+            case 15:
+              _context4.next = 20;
+              break;
+
+            case 17:
+              _context4.prev = 17;
+              _context4.t0 = _context4['catch'](7);
+              return _context4.abrupt('return', this.fail(Enum.DELETE_ERROR.code, Enum.DELETE_ERROR.msg));
+
+            case 20:
+              return _context4.abrupt('return', this.success());
+
+            case 21:
+            case 'end':
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this, [[7, 17]]);
+    }));
+
+    function deleteAction() {
+      return _ref4.apply(this, arguments);
+    }
+
+    return deleteAction;
+  }();
+
   return _class;
 }(_base2.default);
 

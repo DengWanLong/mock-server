@@ -26,4 +26,68 @@ export default class extends Base {
     }
     return this.success({pages: {pageNo: pageNo, pageSize: pageSize, totalCount: result.count, totalPage: result.totalPages}, tables: result.data});
   }
+
+  async addAction() {
+    let projectName = this.get('projectName');
+    let projectPrefix = this.get('projectPrefix');
+    let proxyURL = this.get('proxyURL');
+    let userInfo = await this.session("userInfo");
+    if(think.isEmpty(userInfo)) {
+      return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);
+    }
+    let model = this.model("project");
+    // let insertId = await model.transaction( async function * () {
+    //   let projectId = await model.add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+    //   return await this.model('userAuth').add({userId: userInfo.id, projectId: projectId, isManage: 1});
+    // })
+    // let insertId = await this.model("project").add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+    try {
+      // await model.startTrans();
+      let projectId = await model.add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+      let insertId = await this.model("userAuth").add({userId: userInfo.id, projectId: projectId, isManage: 1});
+      // await model.commit();
+    } catch(e) {
+      // await model.rollback();
+      return this.fail(Enum.ADD_ERROR.code, Enum.ADD_ERROR.msg);
+    }
+    return this.success();
+  }
+
+  async editAction() {
+    let id = this.get('id');
+    let projectName = this.get('projectName');
+    let projectPrefix = this.get('projectPrefix');
+    let proxyURL = this.get('proxyURL');
+    let model = this.model("project");
+    let userInfo = await this.session("userInfo");
+    if(think.isEmpty(userInfo)) {
+      return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);
+    }
+    try {
+      let affectedRows = await model.where({id: id}).update({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
+    } catch(e) {
+      return this.fail(Enum.EDIT_ERROR.code, Enum.EDIT_ERROR.msg);
+    }
+    return this.success();
+  }
+
+  async deleteAction() {
+    let id = this.get('id');
+    let userInfo = await this.session("userInfo");
+    if(think.isEmpty(userInfo)) {
+      return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);
+    }
+    let model = this.model("project");
+    try {
+      let interfaceCount = this.model("interface").field("id").where({projectId: id}).count();
+      if(interfaceCount > 0) {
+        return this.fail(Enum.DELETE_PROJECT_INTERFACE_ERROR.code, Enum.DELETE_PROJECT_INTERFACE_ERROR.msg);
+      }
+      await this.model("userAuth").where({projectId: id}).delete();
+      await model.where({id: id}).delete();
+    } catch(e) {
+      return this.fail(Enum.DELETE_ERROR.code, Enum.DELETE_ERROR.msg);
+    }
+    return this.success();
+  }
 }

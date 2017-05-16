@@ -17,12 +17,13 @@
         <td>{{project.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <div class="ui button" @click="onLookInterface()">查看接口</div>
+            <div class="ui button" @click="onLookInterface(project.id)">查看接口</div>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
-                <div class="item" @click="onEdit()"><i class="edit icon"></i>修改</div>
-                <div class="item" @click="onDelete()"><i class="delete icon"></i>删除</div>
+                <!-- <div class="item" @click="onEdit()"><i class="search icon"></i>查看</div> -->
+                <div class="item" @click="onEdit(project)"><i class="edit icon"></i>修改</div>
+                <div class="item" @click="onDelete(project.id)"><i class="delete icon"></i>删除</div>
               </div>
             </div>
           </div>
@@ -41,6 +42,7 @@
 
 <script>
 import tableMixin from '../../../mixins/table/index';
+import { mapActions } from 'vuex';
 
 export default {
   mixins: [tableMixin],
@@ -57,6 +59,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions(['deleteProject']),
 		fillCustomQueryParams(params) {
 
 		},
@@ -71,14 +74,18 @@ export default {
     onOperation() {
       $(this.$el).find(".operation").dropdown();
     },
-    onLookInterface() {
-      alert("查看接口");
+    onLookInterface(id) {
+      this.$router.push({ name: 'interface', params: { projectId: id }});
     },
-    onEdit() {
-      alert("编辑");
+    onEdit(projectInfo) {
+      this.$parent.showEditPanel(projectInfo);
     },
-    onDelete() {
-      alert("删除");
+    onDelete(id) {
+      var data = {id: id};
+      data.callback = () => {
+        this.$parent.query();
+      };
+      this.deleteProject(data);
     }
   }
 }

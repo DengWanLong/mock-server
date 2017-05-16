@@ -24,7 +24,7 @@ new Vue({
           routes.push({ name: 'project' })
         });
         $(".left-menu .interface").click(function(){
-          routes.push({ name: 'interface' })
+          routes.push({ name: 'interface', params: { projectId: 0 } })
         });
       });
     }

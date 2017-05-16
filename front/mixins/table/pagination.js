@@ -29,24 +29,22 @@ export default {
 		}
 	},
 
-	mounted() {
-		this.$nextTick(() => {
-			this.$on('pagination.click', (action, value) => {
-				if(action === 'first') {
-					this.pagination.nextPageNo = 1;
-				} else if(action === 'last') {
-					this.pagination.nextPageNo = this.pagination.page.totalPage;
-				} else if(action === 'pre') {
-					this.pagination.nextPageNo = this.pagination.page.pageNo - 1;
-				} else if(action === 'next') {
-					this.pagination.nextPageNo = this.pagination.page.pageNo + 1;
-				} else if(value) {
-					this.pagination.nextPageNo = value;
-				}
-				this.nextPage({
-					pageNo: this.pagination.nextPageNo,
-					pageSize: this.pagination.page.pageSize
-				});
+	created() {
+		this.$on('pagination.click', (action, value) => {
+			if(action === 'first') {
+				this.pagination.nextPageNo = 1;
+			} else if(action === 'last') {
+				this.pagination.nextPageNo = this.pagination.page.totalPage;
+			} else if(action === 'pre') {
+				this.pagination.nextPageNo = this.pagination.page.pageNo - 1;
+			} else if(action === 'next') {
+				this.pagination.nextPageNo = this.pagination.page.pageNo + 1;
+			} else if(value) {
+				this.pagination.nextPageNo = value;
+			}
+			this.nextPage({
+				pageNo: this.pagination.nextPageNo,
+				pageSize: this.pagination.page.pageSize
 			});
 		});
 	},

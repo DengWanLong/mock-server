@@ -10,12 +10,12 @@
         <project-table ref="projecttable"></project-table>
       </div>
     </div>
+    <add-project ref="addProject"></add-project>
 </div>
 </template>
 
 <script>
 // import $ from 'jquery';
-import { mapGetters, mapActions } from 'vuex';
 import CodeMirror from '../../../../node_modules/codemirror/lib/codemirror';
 import Mock from 'mockjs';
 import * as MessageBox from '../../common/MessageBox';
@@ -23,28 +23,31 @@ import '../../../../node_modules/codemirror/lib/codemirror.css';
 import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
 import IndexHead from '../IndexHead';
 import ProjectTable from './ProjectTable.vue';
+import AddProject from './AddProject.vue';
 
 export default {
-	components: { IndexHead, ProjectTable },
+	components: { IndexHead, ProjectTable, AddProject },
 	vuex: {
 	},
 	data() {
 		return {
 		};
 	},
-	computed: {
-    ...mapGetters({
-      userInfo: 'userInfo'
-    })
-	},
   mounted() {
     this.$nextTick(function () {
-      $(this.$el).find(".project-panel").shape("repaint");
-      this.$refs.projecttable.loadTable(() => {});
+      this.query();
     })
   },
 	methods: {
-    ...mapActions(['getUserInfo'])
+    query() {
+      this.$refs.projecttable.loadTable(() => {});
+    },
+    showAddPanel() {
+      this.$refs.addProject.show();
+    },
+    showEditPanel(data) {
+      this.$refs.addProject.show(data);
+    }
 	}
 }
 </script>

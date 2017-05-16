@@ -9,11 +9,15 @@
         "msg",
         "USER_NOT_PASSWORD",
         "SYSTEM_ERROR",
-        "NOT_NOGIN"
+        "NOT_NOGIN",
+        "ADD_ERROR",
+        "EDIT_ERROR",
+        "DELETE_ERROR",
+        "DELETE_PROJECT_INTERFACE_ERROR"
     ],
-    "mappings": ";;;AACO,IAAMA,sCAAe,EAAEC,MAAM,GAAR,EAAaC,KAAK,OAAlB,EAArB;AACA,IAAMC,gDAAoB,EAAEF,MAAM,GAAR,EAAaC,KAAK,MAAlB,EAA1B;AACA,IAAME,sCAAe,EAAEH,MAAM,CAAC,CAAT,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMG,gCAAY,EAAEJ,MAAM,CAAR,EAAWC,KAAK,OAAhB,EAAlB",
+    "mappings": ";;;AACO,IAAMA,sCAAe,EAAEC,MAAM,GAAR,EAAaC,KAAK,OAAlB,EAArB;AACA,IAAMC,gDAAoB,EAAEF,MAAM,GAAR,EAAaC,KAAK,MAAlB,EAA1B;AACA,IAAME,sCAAe,EAAEH,MAAM,CAAC,CAAT,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMG,gCAAY,EAAEJ,MAAM,CAAR,EAAWC,KAAK,OAAhB,EAAlB;AACA,IAAMI,gCAAY,EAACL,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAlB;AACA,IAAMK,kCAAa,EAACN,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAnB;AACA,IAAMM,sCAAe,EAACP,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMO,0EAAiC,EAACR,MAAM,GAAP,EAAYC,KAAK,eAAjB,EAAvC",
     "file": "../src/enum.js",
     "sourcesContent": [
-        "\nexport const USER_NO_DATA = { code: 100, msg: '用户不存在' }\nexport const USER_NOT_PASSWORD = { code: 101, msg: '密码错误' }\nexport const SYSTEM_ERROR = { code: -1, msg: '系统异常' }\nexport const NOT_NOGIN = { code: 1, msg: '用户未登录'}\n"
+        "\nexport const USER_NO_DATA = { code: 100, msg: '用户不存在' }\nexport const USER_NOT_PASSWORD = { code: 101, msg: '密码错误' }\nexport const SYSTEM_ERROR = { code: -1, msg: '系统异常' }\nexport const NOT_NOGIN = { code: 1, msg: '用户未登录'}\nexport const ADD_ERROR = {code: 200, msg: '新增失败'}\nexport const EDIT_ERROR = {code: 300, msg: '修改失败'}\nexport const DELETE_ERROR = {code: 400, msg: '删除失败'}\nexport const DELETE_PROJECT_INTERFACE_ERROR = {code: 401, msg: '请先删除当前项目下所有接口'}\n"
     ]
 }
