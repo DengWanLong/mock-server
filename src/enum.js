@@ -7,3 +7,7 @@ export const ADD_ERROR = {code: 200, msg: '新增失败'}
 export const EDIT_ERROR = {code: 300, msg: '修改失败'}
 export const DELETE_ERROR = {code: 400, msg: '删除失败'}
 export const DELETE_PROJECT_INTERFACE_ERROR = {code: 401, msg: '请先删除当前项目下所有接口'}
+export const URL_ERROR = {code: 500, msg: '请求接口地址存在错误'}
+export const NOT_PROJECT_URL_ERROR = {code: 501, msg: '请求接口地址不存在'}
+export const NOT_INTERFACE_URL_ERROR = {code: 502, msg: '请求接口地址不存在'}
+export const NOT_PROXY_URL_ERROR = {code: 503, msg: '二次代理地址不存在'}

@@ -2364,8 +2364,15 @@ code .chunk {
 #example .advertisement div iframe{
   width: 307px  !important;
 }
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+ul li {
+  list-style: none;
+}
 body {
-  background-color: #f1f1f1;
+  background-color: #f1f1f1 !important;
 }
 #loading {
   text-align: center;
@@ -2381,6 +2388,35 @@ body {
   width: 100%;
   height: 2000px;
 }
+.index-main .index-content {
+  padding: 20px;
+}
+.index-main .index-content .index-panel {
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  padding: 10px;
+}
+.index-main .index-content .index-panel .index-search {
+  float: right;
+}
+.index-main .index-content .index-panel .title {
+  line-height: 40px;
+}
+.index-main .index-content .index-panel .title h5 {
+  font-size: 16px;
+  display: inline-block;
+}
+.index-main .index-content .index-panel .right {
+  float: right;
+}
+.index-main .index-content .index-panel::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.index-main .index-content .panel-spacing {
+  height: 20px;
+}
 .data-source {
   padding: 0px !important;
 }
@@ -2392,7 +2428,7 @@ body {
   float: right;
 }
 .segment .mock-button {
-  margin-left: -7px;
+  margin-left: -7px !important;
   position: absolute;
   top: 50%;
 }
@@ -2407,12 +2443,30 @@ body {
   padding: 10px 0px;
   padding-bottom: 0px;
 }
+.CodeMirror .CodeMirror-sizer {
+  margin-left: 30px !important;
+}
 .CodeMirror .cm-comment {
   color: #AAAAAA !important;
   font-style: italic;
 }
 .CodeMirror .cm-string {
   color: #007b6b !important;
+}
+.mini-panel {
+  display: inline-block;
+  width: 70%;
+}
+.mini-panel .CodeMirror {
+  height: 200px   !important;
+  max-height: 200px !important;
+}
+.lateral-spacing {
+  display: inline-block;
+  width: 20px;
+}
+.radio input {
+  margin-right: 5px !important;
 }
 @charset "UTF-8";
 

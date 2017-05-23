@@ -3,12 +3,10 @@
     "sources": [
         "../../../src/api/config/config.js"
     ],
-    "names": [
-        "route_on"
-    ],
-    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACA;AACAA,YAAU;AAHG,C",
+    "names": [],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACA;AAFa,C",
     "file": "../../../src/api/config/config.js",
     "sourcesContent": [
-        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n  //允许自定义路由\n  route_on: true\n};\n"
+        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n  //允许自定义路由\n};\n"
     ]
 }

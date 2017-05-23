@@ -3,10 +3,12 @@
     "sources": [
         "../../../src/common/config/config.js"
     ],
-    "names": [],
-    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AADa,C",
+    "names": [
+        "route_on"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACAA,YAAU;AAFG,C",
     "file": "../../../src/common/config/config.js",
     "sourcesContent": [
-        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n};\n"
+        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n  route_on: true\n};\n"
     ]
 }

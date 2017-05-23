@@ -1,11 +1,11 @@
 {
     "version": 3,
     "sources": [
-        "../../../src/common/config/route.js"
+        "../../../src/common/config/route0.js"
     ],
     "names": [],
     "mappings": "AAAA;AACA;AACA;AACA;;;kBACe,CACb,CAAC,QAAD,EAAW,WAAX,CADa,C",
-    "file": "../../../src/common/config/route.js",
+    "file": "../../../src/common/config/route0.js",
     "sourcesContent": [
         "'use strict';\n// let routes = new GetRoute();\n// const apiroutes = routes.getRoute();\n// const apireg=/^/\nexport default [\n  [/^api\\//, 'api/index'],\n]\n"
     ]
