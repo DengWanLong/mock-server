@@ -17,7 +17,7 @@
         <td>{{project.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <div class="ui button" @click="onLookInterface(project.id)">查看接口</div>
+            <div class="ui button" @click="onLookInterface(project.id, project.projectName)">查看接口</div>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
@@ -74,8 +74,9 @@ export default {
     onOperation() {
       $(this.$el).find(".operation").dropdown();
     },
-    onLookInterface(id) {
-      this.$router.push({ name: 'interface', params: { projectId: id }});
+    onLookInterface(id, projectName) {
+      
+      this.$router.push({ name: 'interface', params: { projectId: id, projectName: projectName }});
     },
     onEdit(projectInfo) {
       this.$parent.showEditPanel(projectInfo);

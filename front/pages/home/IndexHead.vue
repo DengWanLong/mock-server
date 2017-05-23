@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="index-head head-height animated bounceInDown">
-        <div class="logo">
-          <img src="../../assets/logo.png">
+        <div class="logo menu-button logo-button">
+          <router-link :to="{ name: 'index'}" title="首页"><img src="../../assets/logo.png"></router-link>
         </div>
-        <a class="ui menu-button" @click="showMenu()"><i class="sidebar icon"></i>Menu</a>
-        <div class="right"><div class="user-info">{{userInfo.userName}}&nbsp;&nbsp;|&nbsp;&nbsp;<a class="logout">退出</a></div></div>
+        <a class="ui menu-button" @click="showMenu()" title="菜单"><i class="sidebar icon"></i>Menu</a>
+        <div class="right"><div class="user-info">{{userInfo.userName}}&nbsp;&nbsp;|&nbsp;&nbsp;<a class="ui menu-button logout">退出</a></div></div>
     </div>
     <div class="head-height"></div>
   </div>
@@ -83,6 +83,10 @@ export default {
     .menu-button:hover {
       background-color: rgba(255, 255, 255, .3);
       color: rgba(255, 255, 255, 1);
+    }
+
+    .logo-button {
+      padding: 0px;
     }
 
     .logo {

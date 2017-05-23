@@ -45,9 +45,9 @@
 <script>
 // import $ from 'jquery';
 import { mapGetters, mapActions } from 'vuex';
-import CodeMirror from '../../../node_modules/codemirror/lib/codemirror';
 import Mock from 'mockjs';
 import * as MessageBox from '../common/MessageBox';
+import CodeMirror from '../../../node_modules/codemirror/lib/codemirror';
 import '../../../node_modules/codemirror/lib/codemirror.css';
 import '../../../node_modules/codemirror/mode/javascript/javascript.js';
 import IndexHead from './IndexHead';

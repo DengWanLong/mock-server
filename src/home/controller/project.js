@@ -27,6 +27,20 @@ export default class extends Base {
     return this.success({pages: {pageNo: pageNo, pageSize: pageSize, totalCount: result.count, totalPage: result.totalPages}, tables: result.data});
   }
 
+  async queryallAction() {
+    let userInfo = await this.session("userInfo");
+    if(think.isEmpty(userInfo)) {
+      return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);
+    }
+    let result = await this.model("project").join({
+      table: "userAuth",
+      join: "inner",
+      as: 'ua',
+      on: ['id', 'projectId']
+    }).where({'ua.userId': userInfo.id}).field("project.id,project.projectName,project.projectPrefix").select();
+    return this.success(result);
+  }
+
   async addAction() {
     let projectName = this.get('projectName');
     let projectPrefix = this.get('projectPrefix');

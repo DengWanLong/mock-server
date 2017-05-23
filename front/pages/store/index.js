@@ -5,6 +5,7 @@ import * as getters from './getters'
 import mock from './modules/mock'
 import users from './modules/users'
 import project from './modules/project'
+import interfaces from './modules/interface'
 import createLogger from '../../plugins/logger'
 
 Vue.use(Vuex)
@@ -17,7 +18,8 @@ export default new Vuex.Store({
   modules: {
     mock,
     users,
-    project
+    project,
+    interfaces
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

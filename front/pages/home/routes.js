@@ -10,6 +10,6 @@ export default new Router({
   routes: [
       {path: '/', name: 'index', component: IndexMain},
       {path: '/project', name: 'project', component: ProjectMain},
-      {path: '/interface/:projectId', name: 'interface', component: InterfaceMain}
+      {path: '/interface/:projectId/:projectName', name: 'interface', component: InterfaceMain}
   ]
 });

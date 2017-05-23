@@ -105,28 +105,76 @@ var _class = function (_Base) {
     return queryAction;
   }();
 
-  _class.prototype.addAction = function () {
+  _class.prototype.queryallAction = function () {
     var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-      var projectName, projectPrefix, proxyURL, userInfo, model, projectId, insertId;
+      var userInfo, result;
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              projectName = this.get('projectName');
-              projectPrefix = this.get('projectPrefix');
-              proxyURL = this.get('proxyURL');
-              _context2.next = 5;
+              _context2.next = 2;
               return this.session("userInfo");
 
-            case 5:
+            case 2:
               userInfo = _context2.sent;
 
               if (!think.isEmpty(userInfo)) {
-                _context2.next = 8;
+                _context2.next = 5;
                 break;
               }
 
               return _context2.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+
+            case 5:
+              _context2.next = 7;
+              return this.model("project").join({
+                table: "userAuth",
+                join: "inner",
+                as: 'ua',
+                on: ['id', 'projectId']
+              }).where({ 'ua.userId': userInfo.id }).field("project.id,project.projectName,project.projectPrefix").select();
+
+            case 7:
+              result = _context2.sent;
+              return _context2.abrupt('return', this.success(result));
+
+            case 9:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function queryallAction() {
+      return _ref2.apply(this, arguments);
+    }
+
+    return queryallAction;
+  }();
+
+  _class.prototype.addAction = function () {
+    var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+      var projectName, projectPrefix, proxyURL, userInfo, model, projectId, insertId;
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              projectName = this.get('projectName');
+              projectPrefix = this.get('projectPrefix');
+              proxyURL = this.get('proxyURL');
+              _context3.next = 5;
+              return this.session("userInfo");
+
+            case 5:
+              userInfo = _context3.sent;
+
+              if (!think.isEmpty(userInfo)) {
+                _context3.next = 8;
+                break;
+              }
+
+              return _context3.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
 
             case 8:
               model = this.model("project");
@@ -136,164 +184,164 @@ var _class = function (_Base) {
               // })
               // let insertId = await this.model("project").add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
 
-              _context2.prev = 9;
-              _context2.next = 12;
+              _context3.prev = 9;
+              _context3.next = 12;
               return model.add({ projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL });
 
             case 12:
-              projectId = _context2.sent;
-              _context2.next = 15;
+              projectId = _context3.sent;
+              _context3.next = 15;
               return this.model("userAuth").add({ userId: userInfo.id, projectId: projectId, isManage: 1 });
 
             case 15:
-              insertId = _context2.sent;
-              _context2.next = 21;
+              insertId = _context3.sent;
+              _context3.next = 21;
               break;
 
             case 18:
-              _context2.prev = 18;
-              _context2.t0 = _context2['catch'](9);
-              return _context2.abrupt('return', this.fail(Enum.ADD_ERROR.code, Enum.ADD_ERROR.msg));
+              _context3.prev = 18;
+              _context3.t0 = _context3['catch'](9);
+              return _context3.abrupt('return', this.fail(Enum.ADD_ERROR.code, Enum.ADD_ERROR.msg));
 
             case 21:
-              return _context2.abrupt('return', this.success());
+              return _context3.abrupt('return', this.success());
 
             case 22:
             case 'end':
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, this, [[9, 18]]);
+      }, _callee3, this, [[9, 18]]);
     }));
 
     function addAction() {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     }
 
     return addAction;
   }();
 
   _class.prototype.editAction = function () {
-    var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
       var id, projectName, projectPrefix, proxyURL, model, userInfo, affectedRows;
-      return _regenerator2.default.wrap(function _callee3$(_context3) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               id = this.get('id');
               projectName = this.get('projectName');
               projectPrefix = this.get('projectPrefix');
               proxyURL = this.get('proxyURL');
               model = this.model("project");
-              _context3.next = 7;
+              _context4.next = 7;
               return this.session("userInfo");
 
             case 7:
-              userInfo = _context3.sent;
+              userInfo = _context4.sent;
 
               if (!think.isEmpty(userInfo)) {
-                _context3.next = 10;
+                _context4.next = 10;
                 break;
               }
 
-              return _context3.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+              return _context4.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
 
             case 10:
-              _context3.prev = 10;
-              _context3.next = 13;
+              _context4.prev = 10;
+              _context4.next = 13;
               return model.where({ id: id }).update({ projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL });
 
             case 13:
-              affectedRows = _context3.sent;
-              _context3.next = 19;
+              affectedRows = _context4.sent;
+              _context4.next = 19;
               break;
 
             case 16:
-              _context3.prev = 16;
-              _context3.t0 = _context3['catch'](10);
-              return _context3.abrupt('return', this.fail(Enum.EDIT_ERROR.code, Enum.EDIT_ERROR.msg));
+              _context4.prev = 16;
+              _context4.t0 = _context4['catch'](10);
+              return _context4.abrupt('return', this.fail(Enum.EDIT_ERROR.code, Enum.EDIT_ERROR.msg));
 
             case 19:
-              return _context3.abrupt('return', this.success());
+              return _context4.abrupt('return', this.success());
 
             case 20:
             case 'end':
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, this, [[10, 16]]);
+      }, _callee4, this, [[10, 16]]);
     }));
 
     function editAction() {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     }
 
     return editAction;
   }();
 
   _class.prototype.deleteAction = function () {
-    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
+    var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
       var id, userInfo, model, interfaceCount;
-      return _regenerator2.default.wrap(function _callee4$(_context4) {
+      return _regenerator2.default.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               id = this.get('id');
-              _context4.next = 3;
+              _context5.next = 3;
               return this.session("userInfo");
 
             case 3:
-              userInfo = _context4.sent;
+              userInfo = _context5.sent;
 
               if (!think.isEmpty(userInfo)) {
-                _context4.next = 6;
+                _context5.next = 6;
                 break;
               }
 
-              return _context4.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
+              return _context5.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
 
             case 6:
               model = this.model("project");
-              _context4.prev = 7;
+              _context5.prev = 7;
               interfaceCount = this.model("interface").field("id").where({ projectId: id }).count();
 
               if (!(interfaceCount > 0)) {
-                _context4.next = 11;
+                _context5.next = 11;
                 break;
               }
 
-              return _context4.abrupt('return', this.fail(Enum.DELETE_PROJECT_INTERFACE_ERROR.code, Enum.DELETE_PROJECT_INTERFACE_ERROR.msg));
+              return _context5.abrupt('return', this.fail(Enum.DELETE_PROJECT_INTERFACE_ERROR.code, Enum.DELETE_PROJECT_INTERFACE_ERROR.msg));
 
             case 11:
-              _context4.next = 13;
+              _context5.next = 13;
               return this.model("userAuth").where({ projectId: id }).delete();
 
             case 13:
-              _context4.next = 15;
+              _context5.next = 15;
               return model.where({ id: id }).delete();
 
             case 15:
-              _context4.next = 20;
+              _context5.next = 20;
               break;
 
             case 17:
-              _context4.prev = 17;
-              _context4.t0 = _context4['catch'](7);
-              return _context4.abrupt('return', this.fail(Enum.DELETE_ERROR.code, Enum.DELETE_ERROR.msg));
+              _context5.prev = 17;
+              _context5.t0 = _context5['catch'](7);
+              return _context5.abrupt('return', this.fail(Enum.DELETE_ERROR.code, Enum.DELETE_ERROR.msg));
 
             case 20:
-              return _context4.abrupt('return', this.success());
+              return _context5.abrupt('return', this.success());
 
             case 21:
             case 'end':
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, this, [[7, 17]]);
+      }, _callee5, this, [[7, 17]]);
     }));
 
     function deleteAction() {
-      return _ref4.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     }
 
     return deleteAction;
