@@ -1,6 +1,5 @@
 node_modules
 runtime
-dist
 npm-debug.log
 .DS_Store
 .idea
