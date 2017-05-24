@@ -33,7 +33,7 @@ export default class extends Base {
       'INNER JOIN project as p ON i.projectId=p.id',
       'INNER JOIN userAuth as ua on p.id=ua.projectId'
     ]).page(pageNo, pageSize).where(where)
-    .field("i.id,i.projectId,i.interfaceName,i.url,i.proxyUrl,i.requestType,i.openExact,i.params,i.result,i.code,i.openMock,i.openProxy,date_format(i.createTime, '%Y-%c-%d %h:%i:%s' ) as createTime,p.projectName")
+    .field("i.id,i.projectId,i.interfaceName,i.url,i.proxyUrl,i.requestType,i.openExact,i.params,i.result,i.code,i.openMock,i.openProxy,date_format(i.createTime, '%Y-%c-%d %h:%i:%s' ) as createTime,p.projectName,p.projectPrefix")
     .countSelect();
     if(think.isEmpty(result)) {
       return this.success({pages: {pageNo: pageNo, pageSize: pageSize, totalCount: 0, totalPage: 0}, tables: []});

@@ -19,7 +19,7 @@
         <td>{{interfaces.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <div class="ui button" @click="onTest()">测试</div>
+            <a class="ui button" :href="'/api/' + interfaces.projectPrefix + '/' + interfaces.url" target="_blank">测试</a>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
@@ -88,9 +88,9 @@ export default {
     onOperation() {
       $(this.$el).find(".operation").dropdown();
     },
-    onTest() {
-      alert("测试");
-    },
+    // onTest() {
+    //   alert("测试");
+    // },
     onEdit(interfaceInfo) {
       this.$parent.showAddPanel(interfaceInfo);
     },

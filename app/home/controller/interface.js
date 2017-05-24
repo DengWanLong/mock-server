@@ -85,7 +85,7 @@ var _class = function (_Base) {
                 };
               }
               _context.next = 14;
-              return this.model("interface").alias('i').join(['INNER JOIN project as p ON i.projectId=p.id', 'INNER JOIN userAuth as ua on p.id=ua.projectId']).page(pageNo, pageSize).where(where).field("i.id,i.projectId,i.interfaceName,i.url,i.proxyUrl,i.requestType,i.openExact,i.params,i.result,i.code,i.openMock,i.openProxy,date_format(i.createTime, '%Y-%c-%d %h:%i:%s' ) as createTime,p.projectName").countSelect();
+              return this.model("interface").alias('i').join(['INNER JOIN project as p ON i.projectId=p.id', 'INNER JOIN userAuth as ua on p.id=ua.projectId']).page(pageNo, pageSize).where(where).field("i.id,i.projectId,i.interfaceName,i.url,i.proxyUrl,i.requestType,i.openExact,i.params,i.result,i.code,i.openMock,i.openProxy,date_format(i.createTime, '%Y-%c-%d %h:%i:%s' ) as createTime,p.projectName,p.projectPrefix").countSelect();
 
             case 14:
               result = _context.sent;
