@@ -26,6 +26,7 @@ files.forEach(function(file) {
 		filename: moduleName + '/' + entryName + '/' + entryName + '.html',
 		template: file,
 		chunks: ['vendor', entryName],
+		favicon: './front/assets/favicon.ico',
 		inject: true,
 		minify: false,
 	}));
