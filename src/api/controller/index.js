@@ -2,6 +2,7 @@
 
 import Base from './base.js';
 import  * as Enum from '../../enum.js';
+import  * as Common from '../../common.js';
 import Mock from 'mockjs';
 
 export default class extends Base {
@@ -32,7 +33,27 @@ export default class extends Base {
       return this.fail(Enum.NOT_PROJECT_URL_ERROR.code, Enum.NOT_PROJECT_URL_ERROR.msg);
     }
     //查询当前项目下对应接口是否存在(精确匹配)
-    let interfaces = await this.model("interface").where({projectId: project.id, url: interfaceUrl, openExact: 1}).find();
+    let interfaces = null;
+    //有入参才能进行精确匹配
+    if(params) {
+      interfaceUrl = interfaceUrl.replace("?" + params, '');
+      let interfaceList = await this.model("interface").where({projectId: project.id, url: interfaceUrl, openExact: 1}).select();
+      //获取入参
+      let inParams = this.get();
+      delete inParams[projectPrefix];
+      if(this.isPost()) {
+        inParams = this.post();
+      }
+      //循环对比
+      for(let i = 0; i < interfaceList.length; i++) {
+        interfaces = interfaceList[i];
+        let params = Common.parse(interfaces.params);
+        if(Common.isContainEqual(params, inParams)) {
+          break;
+        }
+        interfaces = null;
+      }
+    }
     if(think.isEmpty(interfaces)) {
       //查询当前项目下对应接口是否存在(模糊匹配)
       interfaceUrl = interfaceUrl.replace("?" + params, '');
@@ -53,28 +74,11 @@ export default class extends Base {
     } else {
       //判断是否开启Mockjs
       if(interfaces.openMock == 1) {
-        return this.success(Mock.mock(this.parse(interfaces.result)));
+        return this.json(Mock.mock(Common.parse(interfaces.result)));
       } else {
-        return this.success(this.parse(interfaces.result));
+        return this.json(Common.parse(interfaces.result));
       }
     }
     return this.success();
-  }
-
-  parse(source) {
-    if(!source.startsWith('{')) {
-      source = source.substring(source.indexOf("{"), source.length);
-    }
-    if(!source.endsWith('}')) {
-      source = source.substring(0, source.lastIndexOf("}") + 1);
-    }
-    if(source.includes('//') || source.includes('/*')) {
-      var reg = /("([^\\\"]*(\\.)?)*")|('([^\\\']*(\\.)?)*')|(\/{2,}.*?(\r|\n))|(\/\*(\n|.)*?\*\/)/g,// 正则表达式
-      source = source.replace(reg, function(word) { // 去除注释后的文本
-          return /^\/{2,}/.test(word) || /^\/\*/.test(word) ? "" : word;
-      });
-    }
-    var data = Mock.mock(JSON.parse(source));
-    return data;
   }
 }

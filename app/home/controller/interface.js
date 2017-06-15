@@ -30,6 +30,10 @@ var _enum = require('../../enum.js');
 
 var Enum = _interopRequireWildcard(_enum);
 
+var _common = require('../../common.js');
+
+var Common = _interopRequireWildcard(_common);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -117,13 +121,13 @@ var _class = function (_Base) {
 
   _class.prototype.addAction = function () {
     var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-      var allParams, userInfo;
+      var allParams, userInfo, model, interfaces, params, interfaceList, i, oldParams;
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               //获取所有入参
-              allParams = this.get();
+              allParams = this.post();
               //判断用户是否登录
 
               _context2.next = 3;
@@ -140,13 +144,59 @@ var _class = function (_Base) {
               return _context2.abrupt('return', this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg));
 
             case 6:
-              _context2.next = 8;
-              return this.model("interface").add(allParams);
-
-            case 8:
-              return _context2.abrupt('return', this.success());
+              model = this.model("interface");
+              _context2.next = 9;
+              return model.where({ projectId: allParams.projectId, interfaceName: allParams.interfaceName }).find();
 
             case 9:
+              interfaces = _context2.sent;
+
+              if (!(!think.isEmpty(interfaces) && !think.isEmpty(interfaces.id))) {
+                _context2.next = 12;
+                break;
+              }
+
+              return _context2.abrupt('return', this.fail(Enum.ADD_INTERFACE_NAME_ERROR.code, Enum.ADD_INTERFACE_NAME_ERROR.msg));
+
+            case 12:
+              params = Common.parse(allParams.params);
+              _context2.next = 15;
+              return model.where({ projectId: allParams.projectId, url: allParams.url }).select();
+
+            case 15:
+              interfaceList = _context2.sent;
+              i = 0;
+
+            case 17:
+              if (!(i < interfaceList.length)) {
+                _context2.next = 25;
+                break;
+              }
+
+              interfaces = interfaceList[i];
+              oldParams = Common.parse(interfaces.params);
+              //模糊匹配url不能相同，精确匹配参数不能相同，模糊匹配的地址与精确匹配的地址不能相同
+
+              if (!(allParams.openExact == 0 || interfaces.openExact == 0 || Common.isContainEqual(params, oldParams) || Common.isContainEqual(oldParams, params))) {
+                _context2.next = 22;
+                break;
+              }
+
+              return _context2.abrupt('return', this.fail(Enum.ADD_INTERFACE_URL_OR_PARAMS_ERROR.code, Enum.ADD_INTERFACE_URL_OR_PARAMS_ERROR.msg));
+
+            case 22:
+              i++;
+              _context2.next = 17;
+              break;
+
+            case 25:
+              _context2.next = 27;
+              return this.model("interface").add(allParams);
+
+            case 27:
+              return _context2.abrupt('return', this.success());
+
+            case 28:
             case 'end':
               return _context2.stop();
           }
@@ -163,13 +213,13 @@ var _class = function (_Base) {
 
   _class.prototype.editAction = function () {
     var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-      var allParams, userInfo, id;
+      var allParams, userInfo, id, model, interfaces, params, interfaceList, i, oldParams;
       return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               //获取所有入参
-              allParams = this.get();
+              allParams = this.post();
               //判断用户是否登录
 
               _context3.next = 3;
@@ -189,13 +239,59 @@ var _class = function (_Base) {
               id = allParams.id;
 
               delete allParams.id;
-              _context3.next = 10;
-              return this.model("interface").where({ id: id }).update(allParams);
-
-            case 10:
-              return _context3.abrupt('return', this.success());
+              model = this.model("interface");
+              _context3.next = 11;
+              return model.where({ projectId: allParams.projectId, id: ['!=', id], interfaceName: allParams.interfaceName }).find();
 
             case 11:
+              interfaces = _context3.sent;
+
+              if (!(!think.isEmpty(interfaces) && !think.isEmpty(interfaces.id))) {
+                _context3.next = 14;
+                break;
+              }
+
+              return _context3.abrupt('return', this.fail(Enum.ADD_INTERFACE_NAME_ERROR.code, Enum.ADD_INTERFACE_NAME_ERROR.msg));
+
+            case 14:
+              params = Common.parse(allParams.params);
+              _context3.next = 17;
+              return model.where({ projectId: allParams.projectId, id: ['!=', id], url: allParams.url }).select();
+
+            case 17:
+              interfaceList = _context3.sent;
+              i = 0;
+
+            case 19:
+              if (!(i < interfaceList.length)) {
+                _context3.next = 27;
+                break;
+              }
+
+              interfaces = interfaceList[i];
+              oldParams = Common.parse(interfaces.params);
+              //模糊匹配url不能相同，精确匹配参数不能相同，模糊匹配的地址与精确匹配的地址不能相同
+
+              if (!(allParams.openExact == 0 || interfaces.openExact == 0 || Common.isContainEqual(params, oldParams) || Common.isContainEqual(oldParams, params))) {
+                _context3.next = 24;
+                break;
+              }
+
+              return _context3.abrupt('return', this.fail(Enum.ADD_INTERFACE_URL_OR_PARAMS_ERROR.code, Enum.ADD_INTERFACE_URL_OR_PARAMS_ERROR.msg));
+
+            case 24:
+              i++;
+              _context3.next = 19;
+              break;
+
+            case 27:
+              _context3.next = 29;
+              return this.model("interface").where({ id: id }).update(allParams);
+
+            case 29:
+              return _context3.abrupt('return', this.success());
+
+            case 30:
             case 'end':
               return _context3.stop();
           }

@@ -57,6 +57,15 @@ export default class extends Base {
     // let insertId = await this.model("project").add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
     try {
       // await model.startTrans();
+      let project = model.where({projectName: projectName}).find();
+      if(!think.isEmpty(project)) {
+        return this.fail(Enum.ADD_PROJECT_NAME_ERROR.code, Enum.ADD_PROJECT_NAME_ERROR.msg);
+      }
+      project = model.where({projectPrefix: projectPrefix}).find();
+      if(!think.isEmpty(project)) {
+        return this.fail(Enum.ADD_PROJECT_PREFIX_ERROR.code, Enum.ADD_PROJECT_PREFIX_ERROR.msg);
+      }
+
       let projectId = await model.add({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
       let insertId = await this.model("userAuth").add({userId: userInfo.id, projectId: projectId, isManage: 1});
       // await model.commit();
@@ -78,6 +87,15 @@ export default class extends Base {
       return this.fail(Enum.NOT_NOGIN.code, Enum.NOT_NOGIN.msg);
     }
     try {
+      let project = model.where({id: ['!=', id], projectName: projectName}).find();
+      if(!think.isEmpty(project)) {
+        return this.fail(Enum.ADD_PROJECT_NAME_ERROR.code, Enum.ADD_PROJECT_NAME_ERROR.msg);
+      }
+      project = model.where({id: ['!=', id], projectPrefix: projectPrefix}).find();
+      if(!think.isEmpty(project)) {
+        return this.fail(Enum.ADD_PROJECT_PREFIX_ERROR.code, Enum.ADD_PROJECT_PREFIX_ERROR.msg);
+      }
+
       let affectedRows = await model.where({id: id}).update({projectName: projectName, projectPrefix: projectPrefix, proxyURL: proxyURL});
     } catch(e) {
       return this.fail(Enum.EDIT_ERROR.code, Enum.EDIT_ERROR.msg);

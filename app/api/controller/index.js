@@ -30,6 +30,10 @@ var _enum = require('../../enum.js');
 
 var Enum = _interopRequireWildcard(_enum);
 
+var _common = require('../../common.js');
+
+var Common = _interopRequireWildcard(_common);
+
 var _mockjs = require('mockjs');
 
 var _mockjs2 = _interopRequireDefault(_mockjs);
@@ -52,7 +56,8 @@ var _class = function (_Base) {
    */
   _class.prototype.indexAction = function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-      var prefix, url, temp, projectPrefix, interfaceUrl, params, project, interfaces;
+      var prefix, url, temp, projectPrefix, interfaceUrl, params, project, interfaces, interfaceList, inParams, i, _params;
+
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -95,64 +100,109 @@ var _class = function (_Base) {
               return _context.abrupt('return', this.fail(Enum.NOT_PROJECT_URL_ERROR.code, Enum.NOT_PROJECT_URL_ERROR.msg));
 
             case 14:
-              _context.next = 16;
-              return this.model("interface").where({ projectId: project.id, url: interfaceUrl, openExact: 1 }).find();
+              //查询当前项目下对应接口是否存在(精确匹配)
+              interfaces = null;
+              //有入参才能进行精确匹配
 
-            case 16:
-              interfaces = _context.sent;
+              if (!params) {
+                _context.next = 33;
+                break;
+              }
 
+              interfaceUrl = interfaceUrl.replace("?" + params, '');
+              _context.next = 19;
+              return this.model("interface").where({ projectId: project.id, url: interfaceUrl, openExact: 1 }).select();
+
+            case 19:
+              interfaceList = _context.sent;
+
+              //获取入参
+              inParams = this.get();
+
+              delete inParams[projectPrefix];
+              if (this.isPost()) {
+                inParams = this.post();
+              }
+              //循环对比
+              i = 0;
+
+            case 24:
+              if (!(i < interfaceList.length)) {
+                _context.next = 33;
+                break;
+              }
+
+              interfaces = interfaceList[i];
+              _params = Common.parse(interfaces.params);
+
+              if (!Common.isContainEqual(_params, inParams)) {
+                _context.next = 29;
+                break;
+              }
+
+              return _context.abrupt('break', 33);
+
+            case 29:
+              interfaces = null;
+
+            case 30:
+              i++;
+              _context.next = 24;
+              break;
+
+            case 33:
               if (!think.isEmpty(interfaces)) {
-                _context.next = 24;
+                _context.next = 40;
                 break;
               }
 
               //查询当前项目下对应接口是否存在(模糊匹配)
               interfaceUrl = interfaceUrl.replace("?" + params, '');
-              _context.next = 21;
+              _context.next = 37;
               return this.model("interface").where({ projectId: project.id, url: interfaceUrl, openExact: 0 }).find();
 
-            case 21:
+            case 37:
               interfaces = _context.sent;
 
               if (!think.isEmpty(interfaces)) {
-                _context.next = 24;
+                _context.next = 40;
                 break;
               }
 
               return _context.abrupt('return', this.fail(Enum.NOT_INTERFACE_URL_ERROR.code, Enum.NOT_INTERFACE_URL_ERROR.msg));
 
-            case 24:
+            case 40:
               if (!(interfaces.openProxy == 1)) {
-                _context.next = 29;
+                _context.next = 45;
                 break;
               }
 
               if (interfaces.proxyURL) {
-                _context.next = 27;
+                _context.next = 43;
                 break;
               }
 
               return _context.abrupt('return', this.fail(Enum.NOT_PROXY_URL_ERROR.code, Enum.NOT_PROXY_URL_ERROR.msg));
 
-            case 27:
-              _context.next = 34;
+            case 43:
+              _context.next = 50;
               break;
 
-            case 29:
+            case 45:
               if (!(interfaces.openMock == 1)) {
-                _context.next = 33;
+                _context.next = 49;
                 break;
               }
 
-              return _context.abrupt('return', this.success(_mockjs2.default.mock(this.parse(interfaces.result))));
+              return _context.abrupt('return', this.json(_mockjs2.default.mock(Common.parse(interfaces.result))));
 
-            case 33:
-              return _context.abrupt('return', this.success(this.parse(interfaces.result)));
+            case 49:
+              return _context.abrupt('return', this.json(Common.parse(interfaces.result)));
 
-            case 34:
+            case 50:
               return _context.abrupt('return', this.success());
 
-            case 35:
+            case 51:
             case 'end':
               return _context.stop();
           }
@@ -166,26 +216,6 @@ var _class = function (_Base) {
 
     return indexAction;
   }();
-
-  _class.prototype.parse = function parse(source) {
-    if (!source.startsWith('{')) {
-      source = source.substring(source.indexOf("{"), source.length);
-    }
-    if (!source.endsWith('}')) {
-      source = source.substring(0, source.lastIndexOf("}") + 1);
-    }
-    if (source.includes('//') || source.includes('/*')) {
-      var reg = /("([^\\\"]*(\\.)?)*")|('([^\\\']*(\\.)?)*')|(\/{2,}.*?(\r|\n))|(\/\*(\n|.)*?\*\/)/g,
-          // 正则表达式
-      source = source.replace(reg, function (word) {
-        // 去除注释后的文本
-        return (/^\/{2,}/.test(word) || /^\/\*/.test(word) ? "" : word
-        );
-      });
-    }
-    var data = _mockjs2.default.mock(JSON.parse(source));
-    return data;
-  };
 
   return _class;
 }(_base2.default);

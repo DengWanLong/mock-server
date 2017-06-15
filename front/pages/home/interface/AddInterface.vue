@@ -36,7 +36,7 @@
             <li>
               <label>接口地址：</label>
                 <div class="ui labeled input field">
-                <div class="ui label">/api/ </div>
+                <div class="ui label">/api/{{getProjectPrefix}}</div>
                 <input name="url" type="text" v-model="interfaceInfo.url" placeholder="接口地址">
               </div>
             </li>
@@ -154,6 +154,7 @@ import '../../../../node_modules/codemirror/lib/codemirror.css';
 import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
 let defaultValue = {
   interfaceInfo: {
+    projectId: 1,
     requestType: 'GET',
     openExact: 0,
     params: `var params = {
@@ -184,6 +185,14 @@ export default {
     }),
     isSave() {
       return this.pageNo == 4;
+    },
+    getProjectPrefix() {
+      for(var i = 0; i < this.projectList.length; i++) {
+        if(this.interfaceInfo.projectId == this.projectList[i].id) {
+          return this.projectList[i].projectPrefix + "/";
+        }
+      }
+      return "";
     }
 	},
   mounted() {
@@ -283,6 +292,7 @@ export default {
           openExact: 'empty'
         }
       });
+      this.interfaceInfo.params = this.paramsEditor.getValue();
       if(!$form.form('validate form')) {
         return false;
       }

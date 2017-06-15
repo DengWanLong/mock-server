@@ -11,6 +11,10 @@
         "SYSTEM_ERROR",
         "NOT_NOGIN",
         "ADD_ERROR",
+        "ADD_PROJECT_NAME_ERROR",
+        "ADD_PROJECT_PREFIX_ERROR",
+        "ADD_INTERFACE_NAME_ERROR",
+        "ADD_INTERFACE_URL_OR_PARAMS_ERROR",
         "EDIT_ERROR",
         "DELETE_ERROR",
         "DELETE_PROJECT_INTERFACE_ERROR",
@@ -19,9 +23,9 @@
         "NOT_INTERFACE_URL_ERROR",
         "NOT_PROXY_URL_ERROR"
     ],
-    "mappings": ";;;AACO,IAAMA,sCAAe,EAAEC,MAAM,GAAR,EAAaC,KAAK,OAAlB,EAArB;AACA,IAAMC,gDAAoB,EAAEF,MAAM,GAAR,EAAaC,KAAK,MAAlB,EAA1B;AACA,IAAME,sCAAe,EAAEH,MAAM,CAAC,CAAT,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMG,gCAAY,EAAEJ,MAAM,CAAR,EAAWC,KAAK,OAAhB,EAAlB;AACA,IAAMI,gCAAY,EAACL,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAlB;AACA,IAAMK,kCAAa,EAACN,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAnB;AACA,IAAMM,sCAAe,EAACP,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMO,0EAAiC,EAACR,MAAM,GAAP,EAAYC,KAAK,eAAjB,EAAvC;AACA,IAAMQ,gCAAY,EAACT,MAAM,GAAP,EAAYC,KAAK,YAAjB,EAAlB;AACA,IAAMS,wDAAwB,EAACV,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAA9B;AACA,IAAMU,4DAA0B,EAACX,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAAhC;AACA,IAAMW,oDAAsB,EAACZ,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAA5B",
+    "mappings": ";;;AACO,IAAMA,sCAAe,EAAEC,MAAM,GAAR,EAAaC,KAAK,OAAlB,EAArB;AACA,IAAMC,gDAAoB,EAAEF,MAAM,GAAR,EAAaC,KAAK,MAAlB,EAA1B;AACA,IAAME,sCAAe,EAAEH,MAAM,CAAC,CAAT,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMG,gCAAY,EAAEJ,MAAM,CAAR,EAAWC,KAAK,OAAhB,EAAlB;AACA,IAAMI,gCAAY,EAACL,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAlB;AACA,IAAMK,0DAAyB,EAACN,MAAM,GAAP,EAAYC,KAAK,SAAjB,EAA/B;AACA,IAAMM,8DAA2B,EAACP,MAAM,GAAP,EAAYC,KAAK,SAAjB,EAAjC;AACA,IAAMO,8DAA2B,EAACR,MAAM,GAAP,EAAYC,KAAK,SAAjB,EAAjC;AACA,IAAMQ,gFAAoC,EAACT,MAAM,GAAP,EAAYC,KAAK,aAAjB,EAA1C;AACA,IAAMS,kCAAa,EAACV,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAAnB;AACA,IAAMU,sCAAe,EAACX,MAAM,GAAP,EAAYC,KAAK,MAAjB,EAArB;AACA,IAAMW,0EAAiC,EAACZ,MAAM,GAAP,EAAYC,KAAK,eAAjB,EAAvC;AACA,IAAMY,gCAAY,EAACb,MAAM,GAAP,EAAYC,KAAK,YAAjB,EAAlB;AACA,IAAMa,wDAAwB,EAACd,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAA9B;AACA,IAAMc,4DAA0B,EAACf,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAAhC;AACA,IAAMe,oDAAsB,EAAChB,MAAM,GAAP,EAAYC,KAAK,WAAjB,EAA5B",
     "file": "../src/enum.js",
     "sourcesContent": [
-        "\nexport const USER_NO_DATA = { code: 100, msg: '用户不存在' }\nexport const USER_NOT_PASSWORD = { code: 101, msg: '密码错误' }\nexport const SYSTEM_ERROR = { code: -1, msg: '系统异常' }\nexport const NOT_NOGIN = { code: 1, msg: '用户未登录'}\nexport const ADD_ERROR = {code: 200, msg: '新增失败'}\nexport const EDIT_ERROR = {code: 300, msg: '修改失败'}\nexport const DELETE_ERROR = {code: 400, msg: '删除失败'}\nexport const DELETE_PROJECT_INTERFACE_ERROR = {code: 401, msg: '请先删除当前项目下所有接口'}\nexport const URL_ERROR = {code: 500, msg: '请求接口地址存在错误'}\nexport const NOT_PROJECT_URL_ERROR = {code: 501, msg: '请求接口地址不存在'}\nexport const NOT_INTERFACE_URL_ERROR = {code: 502, msg: '请求接口地址不存在'}\nexport const NOT_PROXY_URL_ERROR = {code: 503, msg: '二次代理地址不存在'}\n"
+        "\nexport const USER_NO_DATA = { code: 100, msg: '用户不存在' }\nexport const USER_NOT_PASSWORD = { code: 101, msg: '密码错误' }\nexport const SYSTEM_ERROR = { code: -1, msg: '系统异常' }\nexport const NOT_NOGIN = { code: 1, msg: '用户未登录'}\nexport const ADD_ERROR = {code: 200, msg: '新增失败'}\nexport const ADD_PROJECT_NAME_ERROR = {code: 210, msg: '项目名称已存在'}\nexport const ADD_PROJECT_PREFIX_ERROR = {code: 211, msg: '项目前缀已存在'}\nexport const ADD_INTERFACE_NAME_ERROR = {code: 220, msg: '接口名称已存在'}\nexport const ADD_INTERFACE_URL_OR_PARAMS_ERROR = {code: 221, msg: '接口地址和参数同时重复'}\nexport const EDIT_ERROR = {code: 300, msg: '修改失败'}\nexport const DELETE_ERROR = {code: 400, msg: '删除失败'}\nexport const DELETE_PROJECT_INTERFACE_ERROR = {code: 401, msg: '请先删除当前项目下所有接口'}\nexport const URL_ERROR = {code: 500, msg: '请求接口地址存在错误'}\nexport const NOT_PROJECT_URL_ERROR = {code: 501, msg: '请求接口地址不存在'}\nexport const NOT_INTERFACE_URL_ERROR = {code: 502, msg: '请求接口地址不存在'}\nexport const NOT_PROXY_URL_ERROR = {code: 503, msg: '二次代理地址不存在'}\n"
     ]
 }

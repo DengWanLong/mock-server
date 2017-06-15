@@ -1,0 +1,43 @@
+{
+    "version": 3,
+    "sources": [
+        "../src/common.js"
+    ],
+    "names": [
+        "parse",
+        "toType",
+        "isEqual",
+        "isContainEqual",
+        "source",
+        "startsWith",
+        "substring",
+        "indexOf",
+        "length",
+        "endsWith",
+        "lastIndexOf",
+        "includes",
+        "reg",
+        "replace",
+        "word",
+        "test",
+        "data",
+        "JSON",
+        "obj",
+        "toString",
+        "call",
+        "match",
+        "toLowerCase",
+        "o1",
+        "o2",
+        "keys1",
+        "keys2",
+        "i",
+        "key",
+        "forEach"
+    ],
+    "mappings": "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",
+    "file": "../src/common.js",
+    "sourcesContent": [
+        "export function parse(source) {\n  if(!source.startsWith('{')) {\n    source = source.substring(source.indexOf(\"{\"), source.length);\n  }\n  if(!source.endsWith('}')) {\n    source = source.substring(0, source.lastIndexOf(\"}\") + 1);\n  }\n  if(source.includes('//') || source.includes('/*')) {\n    var reg = /(\"([^\\\\\\\"]*(\\\\.)?)*\")|('([^\\\\\\']*(\\\\.)?)*')|(\\/{2,}.*?(\\r|\\n))|(\\/\\*(\\n|.)*?\\*\\/)/g,// 正则表达式\n    source = source.replace(reg, function(word) { // 去除注释后的文本\n        return /^\\/{2,}/.test(word) || /^\\/\\*/.test(word) ? \"\" : word;\n    });\n  }\n  var data = JSON.parse(source);\n  return data;\n}\n\nexport function toType (obj) {\n  return ({}).toString.call(obj).match(/\\s([a-zA-Z]+)/)[1].toLowerCase();\n}\n\n//比较对象结构和值是否相等\nexport function isEqual(o1, o2) {\n  //判断类型是否相等\n  if(this.toType(o1) === this.toType(o2)) {\n    //判读是否为对象\n    if(this.toType(o1) === 'object') {\n      let keys1 = Object.keys(o1);\n      let keys2 = Object.keys(o2);\n      if(keys1.length != keys2.length) {\n        return false;\n      }\n      for(let i = 0; i < keys1.length; i++) {\n        let key = keys1[i];\n        // if(!o2.hasOwnProperty(key)) {\n        //   return false;\n        // }\n        if(!this.isEqual(o1[key], o2[key])) {\n          return false;\n        }\n      }\n    }\n    //判断是否为数组\n    else if(this.toType(o1) === 'array') {\n      if(o1.length != o2.length) {\n        return false;\n      }\n      for(let i = 0; i < o1.length; i++) {\n        if(!this.isEqual(o1[i], o2[i])) {\n          return false;\n        }\n      }\n    }\n    //基本类型处理\n    else {\n      return o1 == o2;\n    }\n  } else {\n    return o1 == o2;\n  }\n  return true;\n}\n\nexport function isContainEqual(o1, o2) {\n  let data = {};\n  let keys1 = Object.keys(o1).forEach((key) => {\n    data[key] = o2[key];\n  });\n  return this.isEqual(o1, data);\n}\n"
+    ]
+}

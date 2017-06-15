@@ -19,7 +19,7 @@
         <td>{{interfaces.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <a class="ui button" :href="'/api/' + interfaces.projectPrefix + '/' + interfaces.url" target="_blank">测试</a>
+            <a class="ui button" :href="'/api/' + interfaces.projectPrefix + '/' + interfaces.url + getParamsStr(interfaces.params)" target="_blank">测试</a>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
@@ -48,6 +48,7 @@ import tableMixin from '../../../mixins/table/index';
 import { mapActions } from 'vuex';
 import ZeroClipboard from '../../../libs/zeroclipboard-2.2.0/dist/ZeroClipboard.js';
 import '../../../libs/jquery-zclip/jquery.zclip.js';
+import  * as Common from '../../../../src/common.js';
 
 export default {
   mixins: [tableMixin],
@@ -96,6 +97,14 @@ export default {
     },
     onDelete(id) {
       this.deleteInterface({id: id});
+    },
+    getParamsStr(params) {
+      params = Common.parse(params);
+      let paramsStr = "?t="+new Date().getTime();
+      Object.keys(params).forEach((key) => {
+        paramsStr += "&" + key + "=" + params[key];
+      });
+      return paramsStr;
     },
     onCopy() {
       $('.copy-button').zclip({

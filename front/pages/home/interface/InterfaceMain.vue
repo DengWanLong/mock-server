@@ -74,7 +74,7 @@ export default {
           }
         });
         this.query();
-        loader.close(); 
+        loader.close();
       }};
       this.queryallProject(data);
     } else {

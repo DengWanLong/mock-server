@@ -13,14 +13,14 @@ const actions = {
   addInterface ({ commit, state }, params) {
     let callback = params.callback;
   	delete params.callback;
-    ajax.get("/home/interface/add", params, (data) => {
+    ajax.post("/home/interface/add", params, (data) => {
       callback && callback(data);
     });
   },
   editInterface ({ commit, state }, params) {
     let callback = params.callback;
   	delete params.callback;
-    ajax.get("/home/interface/edit", params, (data) => {
+    ajax.post("/home/interface/edit", params, (data) => {
       callback && callback(data);
     });
   },
