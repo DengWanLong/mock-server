@@ -176,6 +176,7 @@ export default {
       paramsEditor: null,
       resultEditor: null,
       outputEditor: null,
+      isload: false,
       pageNo: 1
 		};
 	},
@@ -205,23 +206,33 @@ export default {
       $(this.$el).find("form").form("clear");
     },
     onLoad() {
-      $(this.$el).find('.select').dropdown();
+      if(!this.isload) {
+        this.isload = true;
+        $(this.$el).find('.select').dropdown();
 
-      this.paramsEditor = CodeMirror.fromTextArea(document.getElementById("params"), {
-    	    mode: "javascript",
-    	    lineNumbers: true,
-    	    lineWrapping: true
-    	});
-      this.resultEditor = CodeMirror.fromTextArea(document.getElementById("result"), {
-    	    mode: "javascript",
-    	    lineNumbers: true,
-    	    lineWrapping: true
-    	});
-      this.outputEditor = CodeMirror.fromTextArea(document.getElementById("output"), {
-    	    mode: "javascript",
-    	    lineNumbers: true,
-    	    lineWrapping: true
-    	});
+        this.paramsEditor = CodeMirror.fromTextArea(document.getElementById("params"), {
+      	    mode: "javascript",
+      	    lineNumbers: true,
+      	    lineWrapping: true
+      	});
+        this.resultEditor = CodeMirror.fromTextArea(document.getElementById("result"), {
+      	    mode: "javascript",
+      	    lineNumbers: true,
+      	    lineWrapping: true
+      	});
+        this.outputEditor = CodeMirror.fromTextArea(document.getElementById("output"), {
+      	    mode: "javascript",
+      	    lineNumbers: true,
+      	    lineWrapping: true
+      	});
+      } else {
+        this.paramsEditor.setValue(this.interfaceInfo.params);
+        this.resultEditor.setValue(this.interfaceInfo.result);
+        this.outputEditor.setValue(this.interfaceInfo.output);
+      }
+      // $("#params").focus();
+      // $("#result").focus();
+      // $("#output").focus();
     },
     show(interfaceInfo) {
       this.pageNo = 1;
@@ -232,7 +243,6 @@ export default {
       setTimeout(() => {
         this.onLoad();
       }, 10);
-      console.log(interfaceInfo);
 
       $(this.$el).modal({
         inverted  : false,
