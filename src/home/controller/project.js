@@ -58,11 +58,11 @@ export default class extends Base {
     try {
       // await model.startTrans();
       let project = model.where({projectName: projectName}).find();
-      if(!think.isEmpty(project)) {
+      if(!think.isEmpty(project) && !think.isEmpty(project.id)) {
         return this.fail(Enum.ADD_PROJECT_NAME_ERROR.code, Enum.ADD_PROJECT_NAME_ERROR.msg);
       }
       project = model.where({projectPrefix: projectPrefix}).find();
-      if(!think.isEmpty(project)) {
+      if(!think.isEmpty(project) && !think.isEmpty(project.id)) {
         return this.fail(Enum.ADD_PROJECT_PREFIX_ERROR.code, Enum.ADD_PROJECT_PREFIX_ERROR.msg);
       }
 
@@ -88,11 +88,11 @@ export default class extends Base {
     }
     try {
       let project = model.where({id: ['!=', id], projectName: projectName}).find();
-      if(!think.isEmpty(project)) {
+      if(!think.isEmpty(project) && !think.isEmpty(project.id)) {
         return this.fail(Enum.ADD_PROJECT_NAME_ERROR.code, Enum.ADD_PROJECT_NAME_ERROR.msg);
       }
       project = model.where({id: ['!=', id], projectPrefix: projectPrefix}).find();
-      if(!think.isEmpty(project)) {
+      if(!think.isEmpty(project) && !think.isEmpty(project.id)) {
         return this.fail(Enum.ADD_PROJECT_PREFIX_ERROR.code, Enum.ADD_PROJECT_PREFIX_ERROR.msg);
       }
 

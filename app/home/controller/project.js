@@ -189,7 +189,7 @@ var _class = function (_Base) {
               // await model.startTrans();
               project = model.where({ projectName: projectName }).find();
 
-              if (think.isEmpty(project)) {
+              if (!(!think.isEmpty(project) && !think.isEmpty(project.id))) {
                 _context3.next = 13;
                 break;
               }
@@ -199,7 +199,7 @@ var _class = function (_Base) {
             case 13:
               project = model.where({ projectPrefix: projectPrefix }).find();
 
-              if (think.isEmpty(project)) {
+              if (!(!think.isEmpty(project) && !think.isEmpty(project.id))) {
                 _context3.next = 16;
                 break;
               }
@@ -272,7 +272,7 @@ var _class = function (_Base) {
               _context4.prev = 10;
               project = model.where({ id: ['!=', id], projectName: projectName }).find();
 
-              if (think.isEmpty(project)) {
+              if (!(!think.isEmpty(project) && !think.isEmpty(project.id))) {
                 _context4.next = 14;
                 break;
               }
@@ -282,7 +282,7 @@ var _class = function (_Base) {
             case 14:
               project = model.where({ id: ['!=', id], projectPrefix: projectPrefix }).find();
 
-              if (think.isEmpty(project)) {
+              if (!(!think.isEmpty(project) && !think.isEmpty(project.id))) {
                 _context4.next = 17;
                 break;
               }

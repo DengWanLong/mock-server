@@ -14,13 +14,16 @@ export default class extends Base {
     //auto render template file index_index.html
     let prefix = '/api/';
     let url = this.http.url.replace(prefix, '');
+    if(url.indexOf("/") == 0) {
+      url = url.replace("/", '');
+    }
     let temp = url.split("/");
     //检查接口地址是否符合
-    if(temp.length != 2 || !temp[0] || !temp[1]) {
+    if(temp.length < 2 || !temp[0] || !temp[1]) {
       return this.fail(Enum.URL_ERROR.code, Enum.URL_ERROR.msg);
     }
     let projectPrefix = temp[0];
-    let interfaceUrl = temp[1];
+    let interfaceUrl = url.replace(projectPrefix + '/', '');
     let params = '';
     //处理params参数
     if(interfaceUrl.indexOf("?")) {

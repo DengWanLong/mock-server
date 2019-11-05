@@ -8,7 +8,9 @@ export default class extends think.controller.base {
    * @param  {Number} status []
    * @return {Promise}        []
    */
-  displayError(status){
+  async displayError(status){
+    let controllerInstance = this.controller('api/index');
+    let data = await this.action(controllerInstance, 'index');
 
     //hide error message on production env
     if(think.env === 'production'){
@@ -33,6 +35,12 @@ export default class extends think.controller.base {
     let file = `${module}/error/${status}.html`;
     let options = this.config('tpl');
     options = think.extend({}, options, {type: 'base', file_depr: '_'});
+
+    // let prefix = '/api';
+    // let url = prefix + this.http.url;
+    // this.forward(url);
+    // this.redirect(url);
+
     this.fetch(file, {}, options).then(content => {
       content = content.replace('ERROR_MESSAGE', message);
       this.type(options.content_type);
@@ -40,38 +48,38 @@ export default class extends think.controller.base {
     });
   }
   /**
-   * Bad Request 
+   * Bad Request
    * @return {Promise} []
    */
-  _400Action(){
+  async _400Action(){
     return this.displayError(400);
   }
   /**
-   * Forbidden 
+   * Forbidden
    * @return {Promise} []
    */
-  _403Action(){
+  async _403Action(){
     return this.displayError(403);
   }
   /**
-   * Not Found 
+   * Not Found
    * @return {Promise}      []
    */
-  _404Action(){
+  async _404Action(){
     return this.displayError(404);
   }
   /**
    * Internal Server Error
    * @return {Promise}      []
    */
-  _500Action(){
+  async _500Action(){
     return this.displayError(500);
   }
   /**
    * Service Unavailable
    * @return {Promise}      []
    */
-  _503Action(){
+  async _503Action(){
     return this.displayError(503);
   }
 }

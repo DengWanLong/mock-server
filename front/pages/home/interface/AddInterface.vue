@@ -149,6 +149,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import * as MessageBox from '../../common/MessageBox';
 import dimmerMixin from '../../../mixins/dimmer';
+import Mock from 'mockjs';
 import CodeMirror from '../../../../node_modules/codemirror/lib/codemirror';
 import '../../../../node_modules/codemirror/lib/codemirror.css';
 import '../../../../node_modules/codemirror/mode/javascript/javascript.js';
@@ -206,9 +207,9 @@ export default {
       $(this.$el).find("form").form("clear");
     },
     onLoad() {
+      $(this.$el).find('.select').dropdown();
       if(!this.isload) {
         this.isload = true;
-        $(this.$el).find('.select').dropdown();
 
         this.paramsEditor = CodeMirror.fromTextArea(document.getElementById("params"), {
       	    mode: "javascript",
@@ -228,7 +229,7 @@ export default {
       } else {
         this.paramsEditor.setValue(this.interfaceInfo.params);
         this.resultEditor.setValue(this.interfaceInfo.result);
-        this.outputEditor.setValue(this.interfaceInfo.output);
+        this.outputEditor.setValue("");
       }
       // $("#params").focus();
       // $("#result").focus();
@@ -363,9 +364,32 @@ export default {
       if(this.pageNo > 4) {
         this.pageNo = 4;
       }
+      this.$nextTick(() => {
+        this.paramsEditor.refresh();
+        this.resultEditor.refresh();
+        this.outputEditor.refresh();
+      })
     },
     onMock() {
-
+      try {
+        var source = this.resultEditor.getValue();
+        if(!source.startsWith('{')) {
+          source = source.substring(source.indexOf("{"), source.length);
+        }
+        if(!source.endsWith('}')) {
+          source = source.substring(0, source.lastIndexOf("}") + 1);
+        }
+        if(source.includes('//') || source.includes('/*')) {
+          var reg = /("([^\\\"]*(\\.)?)*")|('([^\\\']*(\\.)?)*')|(\/{2,}.*?(\r|\n))|(\/\*(\n|.)*?\*\/)/g,// 正则表达式
+          source = source.replace(reg, function(word) { // 去除注释后的文本
+              return /^\/{2,}/.test(word) || /^\/\*/.test(word) ? "" : word;
+          });
+        }
+        var data = Mock.mock(JSON.parse(source));
+        this.outputEditor.setValue(JSON.stringify(data, null, 2));
+      } catch (e) {
+        MessageBox.toast(e.name + ':' + e.message);
+      }
     }
 	}
 }

@@ -19,13 +19,15 @@
         <td>{{interfaces.createTime}}</td>
         <td>
           <div class="ui teal buttons">
-            <a class="ui button" :href="'/api/' + interfaces.projectPrefix + '/' + interfaces.url + getParamsStr(interfaces.params)" target="_blank">测试</a>
+            <a class="ui button" :href="'/' + interfaces.projectPrefix + '/' + interfaces.url + getParamsStr(interfaces.params)" target="_blank">测试</a>
             <div class="ui floating dropdown pointing icon button operation">
               <i class="dropdown icon"></i>
               <div class="menu">
               <!-- <div class="item" @click="onDelete()"><i class="search icon"></i>查看</div> -->
                 <div class="item" @click="onEdit(interfaces)"><i class="edit icon"></i>修改</div>
                 <div class="item" @click="onDelete(interfaces.id)"><i class="delete icon"></i>删除</div>
+                <div v-if="interfaces.openProxy == 1" class="item" @click="onContrast(interfaces.id)"><i class="exchange icon"></i>对比</div>
+                <div class="item" @click="onContrast(interfaces.id)"><i class="users icon"></i>成员管理</div>
                 <div class="item"><copy :content="'/api/' + interfaces.projectPrefix + '/' + interfaces.url + getParamsStr(interfaces.params)" text='<i class="copy icon"></i>&nbsp;&nbsp;复制'></copy></div>
               </div>
             </div>
@@ -97,6 +99,9 @@ export default {
     },
     onDelete(id) {
       this.deleteInterface({id: id});
+    },
+    onContrast(id) {
+
     },
     getParamsStr(params) {
       params = Common.parse(params);
